@@ -1,0 +1,4 @@
+name = "UniqueKronecker"
+uuid = "dd29a912-d12a-442e-ae57-6933397c0393"
+authors = ["smallpondtom <tkoike45@gmail.com>"]
+version = "0.1.0"
