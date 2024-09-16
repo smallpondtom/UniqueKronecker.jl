@@ -8,17 +8,17 @@
 
 ### What is the Unique Kronecker Product?
 
-The standard Kronecker product of a vector \( x \in \mathbb{R}^n \) with itself, \( \text{kron}(x, x) \), produces all possible pairwise products of its elements, resulting in redundant terms when \( x_i x_j = x_j x_i \).
+The standard Kronecker product of a vector $x \in \mathbb{R}^n$ with itself, $\text{kron}(x, x)$, produces all possible pairwise products of its elements, resulting in redundant terms when $x_i x_j = x_j x_i$.
 
 The **unique Kronecker product**, denoted here as \( x^{\langle k \rangle} \), eliminates these redundancies by considering only unique combinations of indices. For example:
 
-For \( x \in \mathbb{R}^2 \):
+For $x \in \mathbb{R}^2$:
 
 - **Standard Kronecker product**:
 
-  \[
+$$
   \text{kron}(x, x) = \begin{bmatrix} x_1 x_1 \\ x_1 x_2 \\ x_2 x_1 \\ x_2 x_2 \end{bmatrix}
-  \]
+$$
 
 - **Unique Kronecker product**:
 
