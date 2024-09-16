@@ -17,7 +17,7 @@ For $x \in \mathbb{R}^2$:
 - **Standard Kronecker product**:
 
 $$
-  x \otimes x = \begin{bmatrix} x_1 x_1 \\ x_1 x_2 \\ x_2 x_1 \\ x_2 x_2 \end{bmatrix}
+  x \otimes x = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2 x_1 \\ x_2^2 \end{bmatrix}
 $$
 
 - **Unique Kronecker product**:
