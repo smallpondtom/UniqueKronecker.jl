@@ -331,7 +331,7 @@ end
 
 
 """
-$(SIGNATURE)
+    makeIdentityCubicOp(n::Int, which_cubic_term::Union{String,Char}="G") → G or E
 
 Helper function to construct the identity cubic operator.
 

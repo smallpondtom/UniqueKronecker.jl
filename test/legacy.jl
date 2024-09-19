@@ -44,4 +44,9 @@ end
     G = UniqueKronecker.makeCubicOp(3, idx, val, which_cubic_term="G", symmetric=true)
     E = UniqueKronecker.makeCubicOp(3, idx, val, which_cubic_term="E", symmetric=false)
     @test all(G .== UniqueKronecker.duplicate_symmetric(E, 3))
+
+    G = UniqueKronecker.makeIdentityCubicOp(3, which_cubic_term="G")
+    E = UniqueKronecker.makeIdentityCubicOp(3, which_cubic_term="E")
+    @test size(G) == (3, 27)
+    @test size(E) == (3, 10)
 end
