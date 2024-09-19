@@ -1,131 +1,156 @@
-# LiftAndLearn
+# UniqueKronecker.jl
 
-**LiftAndLearn.jl** is an implementation of the Lift and Learn as well as the operator inference algorithm proposed in the papers listed in [Key References](@ref).
+**UniqueKronecker.jl** is a Julia package for computing non-redundant (unique) Kronecker products of vectors, generalizing to _n_ dimensions and _k_-repeated products. It provides utility functions to work with the associated coefficient matrices, enabling conversions between unique Kronecker products and their standard (possibly redundant) Kronecker counterparts.
 
-### Operator Inference (OpInf)
-Operator Inference is a scientific machine-learning framework used in data-driven modeling of dynamical systems that aims to learn the governing equations or operators from observed data without explicit knowledge of the underlying physics or dynamics (but with some information such as the structure, e.g., linear, quadratic, bilinear, etc.). To know more about OpInf, please refer to these resources by [Willcox Research Group](https://kiwi.oden.utexas.edu/research/operator-inference) and [ACE Lab](https://github.com/elizqian/operator-inference/tree/master). __Or__ you can head over to the documentation page of this package about [OpInf](manual/nonintrusive/LS.md).
+### What is the Unique Kronecker Product?
 
-### Lift and Learn (LnL)
-Lift and Learn is a physics-informed method for learning low-dimensional models for large-scale dynamical systems. Lifting refers to the transformation of the original nonlinear system to a linear, quadratic, bilinear, or polynomial system by mapping the original state space to a new space with additional auxiliary variables. After lifting the system to a more approachable form, we can learn a reduced model using the OpInf approach. For more info, head over to the documentation on [LnL](manual/nonintrusive/LnL.md).
+The standard Kronecker product of a vector $x \in \mathbb{R}^n$ with itself, $\text{kron}(x, x) = x \otimes x$, produces all possible pairwise products of its elements, resulting in redundant terms when $x_i x_j = x_j x_i$.
 
-## Requirements
-- julia versions 1.8.5 >
-- We use [Ipopt](https://github.com/jump-dev/Ipopt.jl) for the optimization (e.g., EP-OpInf)
-    - This requires additional proprietary linear-solvers including `ma86` and `ma97`. 
-    - You can run the code without it by changing the options. By default Ipopt will use `MUMPS` but we recommend you obtain and download `HSL_jll.jl`. You can find the instructions [here](https://licences.stfc.ac.uk/product/libhsl).
+The **unique Kronecker product**, denoted here as $x^{\langle k \rangle} = x \oslash x$, eliminates these redundancies by considering only unique combinations of indices. For example:
 
-## Installation
+For $x \in \mathbb{R}^2$:
 
-To use LiftAndLearn, install Julia, then at the Julia REPL, type:
+- **Standard Kronecker product**:
 
-```julia
-using Pkg
-Pkg.add("LiftAndLearn")
-using LiftAndLearn
-```
+$$
+  x \otimes x = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2 x_1 \\ x_2^2 \end{bmatrix}
+$$
+
+- **Unique Kronecker product**:
+
+$$
+  x^{\langle 2 \rangle} = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2^2 \end{bmatrix}
+$$
+
+Here, $x_1 x_2$ and $x_2 x_1$ are considered the same and included only once.
+
+### Coefficient Matrices
+
+The package provides functions to compute the associated coefficient matrices:
+
+- **Polynomial Matrix $F \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $x\in\mathbb{R}^2$.
+- **Kronecker Coefficient Matrix $H \in \mathbb{R}^{n \times n^2}$**: Relates the unique Kronecker product to the standard Kronecker product, including coefficients for redundant terms.
+
+These matrices are useful for applications in polynomial regression, symmetric tensor computations, and vectorization of symmetric matrices.
 
 ## Features
 
-Features included in this package are the following:
+- Compute the unique Kronecker product $x^{\langle k \rangle}$ for vectors of any dimension $n$ and any repeat $k$.
+- Generate the associated polynomial and Kronecker coefficient matrices $F$ and $H$.
+- Convert between unique and standard Kronecker products.
+- Utility functions for polynomial modeling and symmetric tensor operations.
 
-- Intrusive model reduction using Proper Orthogonal Decomposition (POD)
-- Non-intrusive model reduction using the standard Operator Inference
-- Non-intrusive model reduction for non-polynomial systems using Lift And Learn
-- Physics-informed Operator Inference approaches
-    - Energy-preserving
-    - More to come in the future ...
+## Installation
 
-!!! note
-    We are actively working to incorporate new features into this package.
+Since this package is not yet registered in the Julia General registry, install it directly from GitHub:
 
-## Examples 
-If you wish to give this package a try see our [Jupyter Notebook examples](https://github.com/smallpondtom/LiftAndLearn.jl/tree/main/examples), where you will find a variety of examples:
-- 1-dimensional heat equation
-- Viscous Burgers' equation
-- Fitzhugh-Nagumo equation
-- Kuramoto-Sivashinksy equation (chaotic system)
+```julia
+using Pkg
+Pkg.add(url="https://github.com/YourUsername/UniqueKronecker.jl")
+```
 
-If you prefer running scripts rather then notebooks, then see the [example scripts](https://github.com/smallpondtom/LiftAndLearn.jl/tree/main/scripts).
+Replace `YourUsername` with the actual GitHub username or organization where the package is hosted.
+
+## Usage
+
+### Importing the Package
+
+```julia
+using UniqueKronecker
+```
+
+### Computing the Unique Kronecker Product
+
+Compute the $k$-th order unique Kronecker product of vector `x`:
+
+```julia
+x = [2.0, 3.0, 4.0]  # Example vector in ℝ³
+
+x_unique_kron =  x ⊘ x 
+println(x_unique_kron)
+# Output: [4.0, 6.0, 8.0, 9.0, 12.0, 16.0]
+# Corresponding to [x₁², x₁x₂, x₁x₃, x₂², x₂x₃, x₃²]
+```
+
+### Computing Coefficient Matrices
+
+#### Polynomial Matrix $H$
+
+Compute the polynomial coefficient matrix $H$:
+
+```julia
+n = 3
+H = zeros(n,n^2)
+for i in 1:n
+    x = rand(n)
+    H[i,:] = kron(x,x)
+end
+
+println(H)
+# Output: A matrix of size (3, 9) for this example
+```
+
+#### Unique/Nonredundant Polynomial Coefficient Matrix $F$
+
+Convert the polynomial matrix $H$ into the unique polynomial coefficient matrix $F$:
+
+```julia
+F = eliminate(H, 2)
+
+println(F)
+# Output: A matrix of size (3, 6) for this example
+```
+
+This can be converted back
+
+```julia
+H = duplicate(F, 2)
+println(H)
+# Output: the H matrix
+```
+
+To make the coefficients symmetric for redundant terms use `duplicate_symmetric`
+
+```julia
+Hs = duplicate_symmetric(F, 2)
+println(Hs)
+# Output: the H matrix with symmetric coefficients
+```
+
+### Relationship Between Matrices
+
+The following relationship holds:
+
+$$
+F \cdot (x \oslash x) = H \cdot (x \otimes x)
+$$
+
+This allows mapping between the unique Kronecker product space and the standard Kronecker product space.
+
+### Generalizing to Higher-Order Products
+
+Compute higher-order unique Kronecker products by specifying a higher value of $k$:
+
+```julia
+k = 3  # Third-order product
+
+x_unique_kron_k3 = unique_kronecker(x, k)  # or ⊘(x,k)
+
+println(x_unique_kron_k3)
+# Output: Corresponding unique products of order 3
+```
+
+## Applications
+
+- **Polynomial Regression**: Efficient computation of polynomial features without redundant terms.
+- **Symmetric Tensor Computations**: Simplifies operations involving symmetric tensors.
+- **Statistical Modeling**: Construction of design matrices with interaction terms.
+- **Machine Learning**: Feature engineering for higher-order interactions.
 
 ## Contributing
 
-If you find any bugs or issues please follow the instructions:
-
-- Open an issue with clear explanation of bug. Recommended to have minimal reproduction example.
-- If you have patched the bug on your own, then create a pull request.
-- For further inquiries please contact [tkoike3@gatech.edu](mailto:tkoike3@gatech.edu).
+Contributions are welcome! If you find a bug or have a feature request, please open an issue. If you'd like to contribute code, feel free to submit a pull request.
 
 ## License
 
-The source code is distributed under [MIT License](https://github.com/smallpondtom/LiftAndLearn.jl/blob/main/LICENSE).
-
-## Key References
-
-(1) Peherstorfer, B. and Willcox, K. 
-[Data-driven operator inference for non-intrusive projection-based model reduction.](https://www.sciencedirect.com/science/article/pii/S0045782516301104)
-Computer Methods in Applied Mechanics and Engineering, 306:196-215, 2016. ([Download](https://cims.nyu.edu/~pehersto/preprints/Non-intrusive-model-reduction-Peherstorfer-Willcox.pdf))
-```
-@article{Peherstorfer16DataDriven,
-    title   = {Data-driven operator inference for nonintrusive projection-based model reduction},
-    author  = {Peherstorfer, B. and Willcox, K.},
-    journal = {Computer Methods in Applied Mechanics and Engineering},
-    volume  = {306},
-    pages   = {196-215},
-    year    = {2016},
-}
-```
-
-(2) Qian, E., Kramer, B., Marques, A., and Willcox, K. 
-[Transform & Learn: A data-driven approach to nonlinear model reduction](https://arc.aiaa.org/doi/10.2514/6.2019-3707).
-In the AIAA Aviation 2019 Forum, June 17-21, Dallas, TX. ([Download](https://www.dropbox.com/s/5znea6z1vntby3d/QKMW_aviation19.pdf?dl=0))
-```
-@inbook{QKMW2019aviation,
-    author = {Qian, E. and Kramer, B. and Marques, A. N. and Willcox, K. E.},
-    title = {Transform \&amp; Learn: A data-driven approach to nonlinear model reduction},
-    booktitle = {AIAA Aviation 2019 Forum},
-    doi = {10.2514/6.2019-3707},
-    URL = {https://arc.aiaa.org/doi/abs/10.2514/6.2019-3707},
-    eprint = {https://arc.aiaa.org/doi/pdf/10.2514/6.2019-3707}
-}
-```
-
-(3) Qian, E., Kramer, B., Peherstorfer, B., and Willcox, K. [Lift & Learn: Physics-informed machine learning for large-scale nonlinear dynamical systems](https://www.sciencedirect.com/science/article/pii/S0167278919307651), Physica D: Nonlinear Phenomena, 2020.
-```
-@article{qian2020lift,
-    title={Lift \& {L}earn: {P}hysics-informed machine learning for large-scale nonlinear dynamical systems},
-    author={Qian, E. and Kramer, B. and Peherstorfer, B. and Willcox, K.},
-    journal={Physica D: Nonlinear Phenomena},
-    volume={406},
-    pages={132401},
-    year={2020},
-    publisher={Elsevier}
-}
-```
-
-(4) Qian, E., Farcas, I.-G., and Willcox, K. [Reduced operator inference for nonlinear partial differential equations](https://epubs.siam.org/doi/10.1137/21M1393972), SIAM Journal of Scientific Computing, 2022.
-```
-@article{doi:10.1137/21M1393972,
-    author = {Qian, Elizabeth and Farca\c{s}, Ionu\c{t}-Gabriel and Willcox, Karen},
-    title = {Reduced Operator Inference for Nonlinear Partial Differential Equations},
-    journal = {SIAM Journal on Scientific Computing},
-    volume = {44},
-    number = {4},
-    pages = {A1934-A1959},
-    year = {2022},
-    doi = {10.1137/21M1393972},
-    URL = {https://doi.org/10.1137/21M1393972},
-    eprint = {https://doi.org/10.1137/21M1393972},
-}
-```
-
-(5) Koike, T., Qian, E. [Energy-Preserving Reduced Operator Inference for Efficient Design and Control](https://arc.aiaa.org/doi/10.2514/6.2024-1012), AIAA SCITECH 2024 Forum. 2024.
-```
-@inproceedings{koike2024energy,
-  title={Energy-Preserving Reduced Operator Inference for Efficient Design and Control},
-  author={Koike, Tomoki and Qian, Elizabeth},
-  booktitle={AIAA SCITECH 2024 Forum},
-  pages={1012},
-  year={2024},
-  doi={https://doi.org/10.2514/6.2024-1012}
-}
-```
+This project is licensed under the [MIT License](https://github.com/smallpondtom/UniqueKronecker.jl/blob/main/LICENSE).

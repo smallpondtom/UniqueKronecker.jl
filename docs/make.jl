@@ -6,6 +6,16 @@ ENV["JULIA_DEBUG"] = "Documenter"
 
 PAGES = [
     "Home" => "index.md",
+    "Unique Kronecker Products" => [
+        "Basics" => "uniquekronecker/basics.md",
+        "Higher Order" => "uniquekronecker/higherorder.md",
+    ],
+    "Matrix Conversions" => [
+        "Elimination Matrix" => "matrices/elimination.md",
+        "Duplication Matrix" => "matrices/duplication.md",
+        "Commutation Matrix" => "matrices/commutation.md",
+        "Symmetrizer Matrix" => "matrices/symmetrizer.md"
+    ],
     "API Reference" => "api.md",
     "Paper Reference" => "paper.md",
 ]
