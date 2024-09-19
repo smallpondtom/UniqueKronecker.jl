@@ -330,3 +330,74 @@ function H2Q(H::AbstractArray)
 end
 
 
+"""
+$(SIGNATURE)
+
+Helper function to construct the identity cubic operator.
+
+## Arguments
+- `n::Int`: dimension of the cubic operator
+- `which_cubic_term::Union{String,Char}="G"`: which cubic term to construct "G" or "E"
+
+## Returns
+- the identity cubic operator
+"""
+function makeIdentityCubicOp(n::Int; which_cubic_term::Union{String,Char}="G")
+
+    # Create the index and value tuples
+    inds = []
+    vals = []
+    for i in 1:n
+        # Cubic term
+        push!(inds, (i,i,i,i))  
+        push!(vals, 1.0)
+
+        for j in 1:n
+            if i != j
+                # Quadratic term times linear term
+                push!(inds, (j,j,i,i))
+                push!(vals, 0.5)
+            end
+        end
+    end
+
+    S = zeros(n, n, n, n)
+    for (ind,val) in zip(inds, vals)
+        i, j, k, l = ind
+        if i == j == k
+            S[ind...] = val
+        elseif (i == j) && (j != k)
+            S[i,j,k,l] = val/3
+            S[i,k,j,l] = val/3
+            S[k,i,j,l] = val/3
+        elseif (i != j) && (j == k)
+            S[i,j,k,l] = val/3
+            S[j,i,k,l] = val/3
+            S[j,k,i,l] = val/3
+        elseif (i == k) && (j != k)
+            S[i,j,k,l] = val/3
+            S[j,i,k,l] = val/3
+            S[i,k,j,l] = val/3
+        else
+            S[i,j,k,l] = val/6
+            S[i,k,j,l] = val/6
+            S[j,i,k,l] = val/6
+            S[j,k,i,l] = val/6
+            S[k,i,j,l] = val/6
+            S[k,j,i,l] = val/6
+        end
+    end
+
+    G = zeros(n, n^3)
+    for i in 1:n
+        G[i, :] = vec(S[:, :, :, i])
+    end
+
+    if which_cubic_term == "G" || which_cubic_term == 'G'
+        return G
+    elseif which_cubic_term == "E" || which_cubic_term == 'E'
+        return eliminate(G,3)
+    else
+        error("The cubic term must be either G or E.")
+    end
+end
