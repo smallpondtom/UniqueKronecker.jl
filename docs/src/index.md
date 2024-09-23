@@ -4,39 +4,39 @@
 
 ### What is the Unique Kronecker Product?
 
-The standard Kronecker product of a vector $x \in \mathbb{R}^n$ with itself, $\text{kron}(x, x) = x \otimes x$, produces all possible pairwise products of its elements, resulting in redundant terms when $x_i x_j = x_j x_i$.
+The standard Kronecker product of a vector ``x \in \mathbb{R}^n`` with itself, ``\text{kron}(x, x) = x \otimes x``, produces all possible pairwise products of its elements, resulting in redundant terms when ``x_i x_j = x_j x_i``.
 
-The **unique Kronecker product**, denoted here as $x^{\langle k \rangle} = x \oslash x$, eliminates these redundancies by considering only unique combinations of indices. For example:
+The **unique Kronecker product**, denoted here as ``x^{\langle k \rangle} = x \oslash x``, eliminates these redundancies by considering only unique combinations of indices. For example:
 
-For $x \in \mathbb{R}^2$:
+For ``\mathbf{x} \in \mathbb{R}^2``:
 
 - **Standard Kronecker product**:
 
-$$
-  x \otimes x = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2 x_1 \\ x_2^2 \end{bmatrix}
-$$
+```math
+  \mathbf{x} \otimes \mathbf{x} = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2 x_1 \\ x_2^2 \end{bmatrix}
+```
 
 - **Unique Kronecker product**:
 
-$$
-  x^{\langle 2 \rangle} = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2^2 \end{bmatrix}
-$$
+```math
+  \mathbf{x} \oslash \mathbf{x} = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2^2 \end{bmatrix}
+```
 
-Here, $x_1 x_2$ and $x_2 x_1$ are considered the same and included only once.
+Here, ``x_1 x_2`` and ``x_2 x_1`` are considered the same and included only once.
 
 ### Coefficient Matrices
 
 The package provides functions to compute the associated coefficient matrices:
 
-- **Polynomial Matrix $F \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $x\in\mathbb{R}^2$.
-- **Kronecker Coefficient Matrix $H \in \mathbb{R}^{n \times n^2}$**: Relates the unique Kronecker product to the standard Kronecker product, including coefficients for redundant terms.
+- **Polynomial Matrix ``\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}``**: Represents the mapping of the unique Kronecker product back to the original vector ``x\in\mathbb{R}^2``.
+- **Kronecker Coefficient Matrix ``\mathbf{A}_2 \in \mathbb{R}^{n \times n^2}``**: Relates the unique Kronecker product to the standard Kronecker product, including coefficients for redundant terms.
 
 These matrices are useful for applications in polynomial regression, symmetric tensor computations, and vectorization of symmetric matrices.
 
 ## Features
 
-- Compute the unique Kronecker product $x^{\langle k \rangle}$ for vectors of any dimension $n$ and any repeat $k$.
-- Generate the associated polynomial and Kronecker coefficient matrices $F$ and $H$.
+- Compute the unique Kronecker product for vectors of any dimension ``n`` and any repeated (Kronecker) order ``k``.
+- Generate the associated polynomial and Kronecker coefficient matrices ``\mathbf{A}_{2u}`` and ``\mathbf{A}_2``.
 - Convert between unique and standard Kronecker products.
 - Utility functions for polynomial modeling and symmetric tensor operations.
 
@@ -61,7 +61,7 @@ using UniqueKronecker
 
 ### Computing the Unique Kronecker Product
 
-Compute the $k$-th order unique Kronecker product of vector `x`:
+Compute the ``k``-th order unique Kronecker product of vector `x`:
 
 ```julia
 x = [2.0, 3.0, 4.0]  # Example vector in ℝ³
@@ -74,9 +74,9 @@ println(x_unique_kron)
 
 ### Computing Coefficient Matrices
 
-#### Polynomial Matrix $H$
+#### Polynomial Matrix ``H``
 
-Compute the polynomial coefficient matrix $H$:
+Compute the polynomial coefficient matrix ``H``:
 
 ```julia
 n = 3
@@ -90,9 +90,9 @@ println(H)
 # Output: A matrix of size (3, 9) for this example
 ```
 
-#### Unique/Nonredundant Polynomial Coefficient Matrix $F$
+#### Unique/Nonredundant Polynomial Coefficient Matrix ``F``
 
-Convert the polynomial matrix $H$ into the unique polynomial coefficient matrix $F$:
+Convert the polynomial matrix ``H`` into the unique polynomial coefficient matrix ``F``:
 
 ```julia
 F = eliminate(H, 2)
@@ -121,15 +121,15 @@ println(Hs)
 
 The following relationship holds:
 
-$$
+```math
 F \cdot (x \oslash x) = H \cdot (x \otimes x)
-$$
+```
 
 This allows mapping between the unique Kronecker product space and the standard Kronecker product space.
 
 ### Generalizing to Higher-Order Products
 
-Compute higher-order unique Kronecker products by specifying a higher value of $k$:
+Compute higher-order unique Kronecker products by specifying a higher value of ``k``:
 
 ```julia
 k = 3  # Third-order product

@@ -5,4 +5,4 @@ DocumenterTools = "35a29f4d-8980-5a13-9543-d66fff28ecb8"
 UniqueKronecker = "dd29a912-d12a-442e-ae57-6933397c0393"
 
 [compat]
-Documenter = "1.2"
+Documenter = "1.7"

@@ -51,3 +51,4 @@ function invec(r::AbstractArray, m::Int, n::Int)::AbstractArray
     tmp = sparse(reshape(1.0I(n), 1, :))
     return kron(tmp, sparse(1.0I,m,m)) * kron(sparse(1.0I,n,n), r)
 end
+

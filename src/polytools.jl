@@ -5,7 +5,7 @@ export makePolyOp
 """
     dupmat(n::Int, p::Int) -> Dp::SparseMatrixCSC{Int}
 
-Create a duplication matrix of order `p` for a vector of length `n`.
+Create a duplication matrix of order `p` for a vector of length `n` [MagnusEML1980](@citet).
 
 ## Arguments
 - `n::Int`: The length of the vector.
@@ -23,10 +23,6 @@ julia> dupmat(2,2)
  ⋅  1  ⋅
  ⋅  ⋅  1
 ```
-
-## References
-[^magnus1980] J. R. Magnus and H. Neudecker, “The Elimination Matrix: Some Lemmas and Applications,” 
-SIAM. J. on Algebraic and Discrete Methods, vol. 1, no. 4, pp. 422–449, Dec. 1980, doi: 10.1137/0601049.
 """
 function dupmat(n::Int, p::Int)
     if p == 2  # fast algorithm for quadratic case
@@ -88,7 +84,7 @@ end
 """
     symmtzrmat(n::Int, p::Int) -> Sp::SparseMatrixCSC{Float64}
 
-Create a symmetrizer matrix of order `p` for a vector of length `n` [^magnus1980].
+Create a symmetrizer matrix of order `p` for a vector of length `n` [MagnusEML1980](@citet).
 
 ## Arguments
 - `n::Int`: The length of the vector.
@@ -151,7 +147,7 @@ end
 """
     elimat(n::Int, p::Int) -> Lp::SparseMatrixCSC{Int}
 
-Create an elimination matrix of order `p` for a vector of length `n` [^magnus1980].
+Create an elimination matrix of order `p` for a vector of length `n` [MagnusEML1980](@citet).
 
 ## Arguments
 - `n::Int`: The length of the vector.
@@ -210,7 +206,7 @@ end
 """
     commat(m::Int, n::Int) → K
 
-Create commutation matrix `K` of dimension `m x n` [^magnus1980].
+Create commutation matrix `K` of dimension `m x n` [MagnusEML1980](@citet).
 
 ## Arguments
 - `m::Int`: row dimension of the commutation matrix

@@ -12,18 +12,18 @@ The standard Kronecker product of a vector $x \in \mathbb{R}^n$ with itself, $\t
 
 The **unique Kronecker product**, denoted here as $x^{\langle k \rangle} = x \oslash x$, eliminates these redundancies by considering only unique combinations of indices. For example:
 
-For $x \in \mathbb{R}^2$:
+For $\mathbf{x} \in \mathbb{R}^2$:
 
 - **Standard Kronecker product**:
 
 $$
-  x \otimes x = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2 x_1 \\ x_2^2 \end{bmatrix}
+  \mathbf{x} \otimes \mathbf{x} = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2 x_1 \\ x_2^2 \end{bmatrix}
 $$
 
 - **Unique Kronecker product**:
 
 $$
-  x^{\langle 2 \rangle} = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2^2 \end{bmatrix}
+  \mathbf{x} \oslash \mathbf{x} = \begin{bmatrix} x_1^2 \\ x_1 x_2 \\ x_2^2 \end{bmatrix}
 $$
 
 Here, $x_1 x_2$ and $x_2 x_1$ are considered the same and included only once.
@@ -32,15 +32,15 @@ Here, $x_1 x_2$ and $x_2 x_1$ are considered the same and included only once.
 
 The package provides functions to compute the associated coefficient matrices:
 
-- **Polynomial Matrix $F \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $x\in\mathbb{R}^2$.
-- **Kronecker Coefficient Matrix $H \in \mathbb{R}^{n \times n^2}$**: Relates the unique Kronecker product to the standard Kronecker product, including coefficients for redundant terms.
+- **Polynomial Matrix $\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $x\in\mathbb{R}^2$.
+- **Kronecker Coefficient Matrix $\mathbf{A}_2 \in \mathbb{R}^{n \times n^2}$**: Relates the unique Kronecker product to the standard Kronecker product, including coefficients for redundant terms.
 
 These matrices are useful for applications in polynomial regression, symmetric tensor computations, and vectorization of symmetric matrices.
 
 ## Features
 
-- Compute the unique Kronecker product $x^{\langle k \rangle}$ for vectors of any dimension $n$ and any repeat $k$.
-- Generate the associated polynomial and Kronecker coefficient matrices $F$ and $H$.
+- Compute the unique Kronecker product for vectors of any dimension $n$ and any repeated (Kronecker) order $k$.
+- Generate the associated polynomial and Kronecker coefficient matrices $\mathbf{A}_{2u}$ and $\mathbf{A}_2$.
 - Convert between unique and standard Kronecker products.
 - Utility functions for polynomial modeling and symmetric tensor operations.
 
@@ -157,4 +157,4 @@ Contributions are welcome! If you find a bug or have a feature request, please o
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](https://github.com/smallpondtom/UniqueKronecker.jl/blob/main/LICENSE).

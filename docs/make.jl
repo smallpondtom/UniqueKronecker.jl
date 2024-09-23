@@ -11,6 +11,7 @@ PAGES = [
         "Higher Order" => "uniquekronecker/higherorder.md",
     ],
     "Matrix Conversions" => [
+        "Polynomial Dynamical System" => "matrices/dynamicalsystem.md",
         "Elimination Matrix" => "matrices/elimination.md",
         "Duplication Matrix" => "matrices/duplication.md",
         "Commutation Matrix" => "matrices/commutation.md",
