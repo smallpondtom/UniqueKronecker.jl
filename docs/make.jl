@@ -32,6 +32,7 @@ makedocs(
         edit_link = "https://github.com/smallpondtom/UniqueKronecker.jl",
         assets=String[
             "assets/citations.css",
+            "assets/favicon.ico",
         ],
         # analytics = "G-B2FEJZ9J99",
     ),
