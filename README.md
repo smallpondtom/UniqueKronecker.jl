@@ -55,7 +55,15 @@ These matrices are useful for applications in polynomial regression, symmetric t
 
 ## Installation
 
-Since this package is not yet registered in the Julia General registry, install it directly from GitHub:
+You can install it using the command
+
+```julia
+using Pkg
+Pkg.add("UniqueKronecker")
+using UniqueKronecker
+```
+
+or install it directly from GitHub:
 
 ```julia
 using Pkg
