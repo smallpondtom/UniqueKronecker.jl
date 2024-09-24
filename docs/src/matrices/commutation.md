@@ -82,13 +82,13 @@ The commutation matrix is particularly useful in the following contexts:
 
 5. **Construct second-order symmetrizer matrix**
 
-    For the second-order Kronecker product, the symmetrizer matrix is defined by
+   For the second-order Kronecker product, the symmetrizer matrix is defined by
 
-    ```math
-        \mathbf{S}_2 = \frac{1}{2}(\mathbf{I}_{n^2} + \mathbf{K}_{n,n}) 
-    ```
+```math
+   \mathbf{S}_2 = \frac{1}{2}(\mathbf{I}_{n^2} + \mathbf{K}_{n,n}) 
+```
 
-    See more details on the [symmetrizer matrix](symmetrizer.md).
+   See more details on the [symmetrizer matrix](symmetrizer.md).
 
 
 ```@docs
