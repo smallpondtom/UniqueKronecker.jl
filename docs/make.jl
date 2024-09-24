@@ -10,6 +10,7 @@ PAGES = [
         "Basics" => "uniquekronecker/basics.md",
         "Higher Order" => "uniquekronecker/higherorder.md",
     ],
+    "Circulant Kronecker Products" => "circulantkronecker/basics.md",
     "Matrix Conversions" => [
         "Polynomial Dynamical System" => "matrices/dynamicalsystem.md",
         "Elimination Matrix" => "matrices/elimination.md",
@@ -24,7 +25,7 @@ PAGES = [
 bib = CitationBibliography(joinpath(@__DIR__, "src", "refs.bib"))
 
 makedocs(
-    sitename = "LiftAndLearn.jl",
+    sitename = "UniqueKronecker.jl",
     clean = true, doctest = false, linkcheck = false,
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",

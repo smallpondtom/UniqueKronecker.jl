@@ -1,5 +1,6 @@
 export dupmat, symmtzrmat, elimat, commat, eliminate, duplicate, duplicate_symmetric
 export makePolyOp
+export kron_snapshot_matrix, unique_kron_snapshot_matrix
 
 
 """

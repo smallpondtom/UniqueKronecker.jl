@@ -10,10 +10,7 @@ The duplication matrix $\mathbf{D}_n$ is a unique matrix of size $\left(n^2 \tim
     \mathrm{vec}(\mathbf{S}) = \mathbf{D}_n \mathrm{vech}(\mathbf{S})
 ```
 
-where:
-
-- $\mathrm{vec}(\mathbf{S})$ stacks all columns of $\mathbf{S}$ into a single vector of length $n^2$.
-- $\mathrm{vech}(\mathbf{S})$ stacks only the elements on and below (or above) the main diagonal into a vector of length $\tfrac{n(n+1)}{2}$.
+where: (1) $\mathrm{vec}(\mathbf{S})$ stacks all columns of $\mathbf{S}$ into a single vector of length $n^2$; (2) $\mathrm{vech}(\mathbf{S})$ stacks only the elements on and below (or above) the main diagonal into a vector of length $\tfrac{n(n+1)}{2}$.
 
 The duplication matrix effectively "duplicates" the unique elements in $\mathrm{vech}(\mathbf{S})$ to fill the positions in $\mathrm{vec}(\mathbf{S})$ that correspond to symmetric entries.
 

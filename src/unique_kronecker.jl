@@ -69,7 +69,7 @@ x = y = \\begin{bmatrix}
 ```
 then
 ```math
-unique_kronecker(x, x) = \\begin{bmatrix}
+\\mathrm{unique_kronecker}(x, x) = \\begin{bmatrix}
     1 \\\\
     2 \\\\
     4

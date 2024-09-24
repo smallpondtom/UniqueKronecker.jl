@@ -39,8 +39,8 @@ end
     @test all(H .== UniqueKronecker.duplicate_symmetric(F, 2))
     @test all(H .== UniqueKronecker.Q2H(Q))
 
-    idx = [(1, 1, 1, 1), (1, 1, 1, 2)]
-    val = [1.0, 2.0]
+    idx = [(2, 1, 1, 1), (1, 1, 3, 2), (1, 2, 3, 1), (1, 2, 1, 3)]
+    val = [1.0, 2.0, -1.0, 2.0]
     G = UniqueKronecker.makeCubicOp(3, idx, val, which_cubic_term="G", symmetric=true)
     E = UniqueKronecker.makeCubicOp(3, idx, val, which_cubic_term="E", symmetric=false)
     @test all(G .== UniqueKronecker.duplicate_symmetric(E, 3))
@@ -49,4 +49,9 @@ end
     E = UniqueKronecker.makeIdentityCubicOp(3, which_cubic_term="E")
     @test size(G) == (3, 27)
     @test size(E) == (3, 10)
+
+    G = UniqueKronecker.makeIdentityCubicOp(4, which_cubic_term="G")
+    E = UniqueKronecker.makeIdentityCubicOp(4, which_cubic_term="E")
+    @test size(G) == (4, 64)
+    @test size(E) == (4, 20)
 end

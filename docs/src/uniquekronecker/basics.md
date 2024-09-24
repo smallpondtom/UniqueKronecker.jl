@@ -53,7 +53,31 @@ The vectorization operator is already defined in the `LinearAlgebra` package as 
 We are aware that similar concepts exists in the tensor algebra literature, and the vectorization and half-vectorization operations can be generalized to higher-order Kronecker products. However, for ease of exposition, we only illustrate the second-order Kronecker product case.
 
 
+## Columnwise Operation on Snapshot Matrices
+
+We also employ the functions 
+
+- `kron_snapshot_matrix`
+- `unique_kron_snapshot_matrix`
+
+which allows you to apply the Kronecker product and unique Kronecker product on each column of a matrix. For example
+
+```@repl
+using UniqueKronecker
+X = [1 2; 3 4]
+X2 = kron_snapshot_matrix(X, 2)
+```
+
+```@repl
+using UniqueKronecker
+X = [1 2; 3 4]
+X2u = unique_kron_snapshot_matrix(X, 2)
+```
+
+
 ```@docs
 unique_kronecker
 ⊘
+kron_snapshot_matrix
+unique_kron_snapshot_matrix
 ```

@@ -12,6 +12,7 @@ defaultname(file) = uppercasefirst(replace(splitext(basename(file))[1], '_' => '
 
 @testset "UniqueKronecker" begin
     testfile("unique_kronecker.jl")
+    testfile("circulant_kronecker.jl")
     testfile("special_matrices.jl")
     testfile("create_poly.jl")
     testfile("conversion.jl")
