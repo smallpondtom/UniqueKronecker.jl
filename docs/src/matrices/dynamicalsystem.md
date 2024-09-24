@@ -12,11 +12,11 @@ where $\mathbf{x}$ is the system variable and $\mathbf{A}_2\in\mathbb{R}^{n\time
     \dot{\mathbf{x}}(t) = \mathbf{A}\mathbf{x}(t) + \mathbf{A}_{2u}\mathbf{x}^{\langle 2 \rangle}(t) + \mathbf{A}_{3u}\mathbf{x}^{\langle 3 \rangle}(t) + \cdots  
 ```
 
-where $\mathbf{A}_{2u}\in\mathbb{R}^{3}$ and $\mathbf{A}_{3u}\in\mathbb{R}^{6}$. This package is also dedicated to converting between the unique operators $\mathbf{A}_{2u},~\mathbf{A}_{3u}$ and non-unique operators $\mathbf{A}_2,~\mathbf{A}_3$. 
+where $\mathbf{A}_{2u}\in\mathbb{R}^{n(n+1)/2}$ and $\mathbf{A}_{3u}\in\mathbb{R}^{n(n+1)(n+2)/6}$. This package is also dedicated to converting between the unique operators $\mathbf{A}_{2u},~\mathbf{A}_{3u}$ and non-unique operators $\mathbf{A}_2,~\mathbf{A}_3$. 
 
 
 # Creating the Polynomial Operators
-This packages offers a built-in function that allows the construction of redundant and non-redundant polynomial operators generalized for the dimension of the system variable and order of the Kronecker product. This function is called `makePolyOp` which easily creates the matrices by taking in the indices and values.
+This packages offers a built-in function that allows the construction of redundant and non-redundant polynomial operators generalized for the dimension of the system variable and order of the Kronecker product. This function is called `makePolyOp` which easily creates the matrices by accepting the indices and values as arguments.
 
 ```@docs
 makePolyOp
@@ -24,7 +24,7 @@ makePolyOp
 
 # Example
 
-Here we show some famous examples of such dynamical structures:
+Here we show some famous systems which possess the polynomial structure:
 
 ## Van der Pol Oscillator
 
@@ -74,7 +74,7 @@ Here, the matrices are defined as:
 The cubic term arises from the $- \mu x_1^2 x_2$ component, which can be represented using the unique Kronecker product:
 
 ```math
-    \mathbf{x}^{\langle 3 \rangle} = [x_1^3, x_1^2 x_2, x_1 x_2^2, x_2^3]^\top
+    \mathbf{x}^{\langle 3 \rangle} = [x_1^3,~x_1^2 x_2, ~x_1 x_2^2, ~x_2^3]^\top
 ```
 
 Thus, the Van der Pol oscillator fits into the polynomial dynamical system framework by capturing its nonlinear dynamics through the unique Kronecker product, facilitating analysis and simulation.
@@ -109,7 +109,7 @@ To express the Lorenz system within the polynomial dynamical system framework, w
 We define the state vector $\mathbf{x} = [x_1, x_2, x_3]^\top$ and compute the unique Kronecker powers:
 
 ```math
-    \mathbf{x}^{\langle 2 \rangle} = [x_1^2, x_1 x_2, x_1 x_3, x_2^2, x_2 x_3, x_3^2]^\top
+    \mathbf{x}^{\langle 2 \rangle} = [x_1^2, ~x_1 x_2, ~x_1 x_3, ~x_2^2, ~x_2 x_3, ~x_3^2]^\top
 ```
 
 The system can then be represented as:
@@ -168,8 +168,8 @@ To convert this PDE into a finite-dimensional polynomial dynamical system, we di
 
 Here:
 
-- $\mathbf{A}$ represents the discretized Laplacian operator (diffusion term).
-- $\mathbf{A}_2$ represents the discretized convection operator.
+- the discretized Laplacian operator (diffusion term) is repsented by $\mathbf{A}$.
+- and the discretized convection operator is $\mathbf{A}_2$ .
 
 By rearranging, we can express the nonlinear term using the unique Kronecker product:
 
@@ -177,15 +177,11 @@ By rearranging, we can express the nonlinear term using the unique Kronecker pro
     \dot{\mathbf{u}} = \mathbf{A} \mathbf{u} + \mathbf{A}_{2u} \mathbf{u}^{\langle 2 \rangle}
 ```
 
-Where:
-
-- Quadratic term:
+where:
 
   ```math
-      \mathbf{u}^{\langle 2 \rangle} = [u_1^2, u_1 u_2, \dots, u_n^2]^\top
+      \mathbf{u}^{\langle 2 \rangle} = [u_1^2, ~u_1 u_2, ~\dots, ~u_n^2]^\top
   ```
-
-- $\mathbf{A}_{2u}$ encapsulates the effect of the nonlinear convection term.
 
 This formulation allows us to apply polynomial system analysis tools to the viscous Burgers' equation, enabling efficient simulation and control design for systems modeled by this equation.
 

@@ -4,13 +4,13 @@ The **Circulant Kronecker Product** is a generalized operation that extends the 
 
 ## Mathematical Definition
 
-Given a sequence of vectors or matrices \(\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n\), the circulant Kronecker product is defined as:
+Given a sequence of vectors or matrices $\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n$, the circulant Kronecker product is defined as:
 
 ```math
 \mathbf{x}_1 \circledast \mathbf{x}_2 \circledast \dots \circledast \mathbf{x}_n = \sum_{k=0}^{n-1} \mathbf{x}_{1+k} \otimes \mathbf{x}_{2+k} \otimes \dots \otimes \mathbf{x}_{n+k}
 ```
 
-where the indices are taken modulo \(n\), i.e., \(\mathbf{x}_{i+n} = \mathbf{x}_i\).
+where the indices are taken modulo $n$, i.e., $\mathbf{x}_{i+n} = \mathbf{x}_i$.
 
 ## Implementation
 
@@ -75,6 +75,7 @@ Explanation:
 #### Example 3: Matrices
 
 ```@repl
+using UniqueKronecker
 A = [1 2; 3 4];
 B = [5 6; 7 8];
 C = [9 10; 11 12];
@@ -92,6 +93,7 @@ Using the function `circulant_kron_snapshot_matrix`, the circulant Kronecker pro
 ### Example
 
 ```@repl
+using UniqueKronecker
 X1 = [1 2; 3 4]
 X2 = [5 6; 7 8]
 X3 = [9 10; 11 12]
@@ -113,7 +115,7 @@ This circulant Kronecker product is useful because it is a well-known result tha
 and 
 
 ```math
-\frac{\partial}{\partial \mathbf{x}}(\mathbf{x} \otimes \mathbf{x} \otimes \mathbf{x}) = \mathbf{I}_2 \otimes \mathbf{x} \otimes \mathbf{x} + \mathbf{x} \otimes \mathbf{I}_2 + \otimes \mathbf{x} + \mathbf{x} \otimes \mathbf{x} \otimes \mathbf{I}_2
+\frac{\partial}{\partial \mathbf{x}}(\mathbf{x} \otimes \mathbf{x} \otimes \mathbf{x}) = \mathbf{I}_2 \otimes \mathbf{x} \otimes \mathbf{x} + \mathbf{x} \otimes \mathbf{I}_2 \otimes \mathbf{x} + \mathbf{x} \otimes \mathbf{x} \otimes \mathbf{I}_2
 ```
 
 which can be reformulated using the circulant Kronecker product as, e.g.,
@@ -134,7 +136,7 @@ When working with circulant Kronecker products, especially in the context of sym
 
 1. **Compute the Full Circulant Kronecker Product**: Use the `circulant_kronecker` function to compute the sum over all cyclic permutations.
 
-2. **Apply the Elimination Matrix**: Multiply the result by the elimination matrix \(\mathbf{L}_{n,k}\) to extract the unique elements.
+2. **Apply the Elimination Matrix**: Multiply the result by the elimination matrix $\mathbf{L}_{n,k}$ to extract the unique elements.
 
    ```math
    \text{Unique Elements} = \mathbf{L}_{n,k} \left( \mathbf{x}_1 \circledast \mathbf{x}_2 \circledast \dots \circledast \mathbf{x}_n \right)
@@ -144,7 +146,7 @@ When working with circulant Kronecker products, especially in the context of sym
 
 1. **Start with Unique Elements**: Obtain the vector containing the unique monomials.
 
-2. **Apply the Duplication Matrix**: Multiply the unique elements by the duplication matrix \(\mathbf{D}_{n,k}\) to reconstruct the full symmetric tensor.
+2. **Apply the Duplication Matrix**: Multiply the unique elements by the duplication matrix $\mathbf{D}_{n,k}$ to reconstruct the full symmetric tensor.
 
    ```math
    \text{Full Kronecker Product} = \mathbf{D}_{n,k} \times \text{Unique Elements}
@@ -152,7 +154,7 @@ When working with circulant Kronecker products, especially in the context of sym
 
 ##### Example
 
-Consider vectors \(\mathbf{x}, \mathbf{y} \in \mathbb{R}^2\):
+Consider vectors $\mathbf{x}, \mathbf{y} \in \mathbb{R}^2$:
 
 1. **Compute the Circulant Kronecker Product**:
 
@@ -170,4 +172,4 @@ Consider vectors \(\mathbf{x}, \mathbf{y} \in \mathbb{R}^2\):
 
 3. **Result**:
 
-   - The unique elements correspond to the monomials \(x_1 y_1\), \(x_1 y_2 + x_2 y_1\), and \(x_2 y_2\).
+   - The unique elements correspond to the monomials $x_1 y_1$, $x_1 y_2 + x_2 y_1$, and $x_2 y_2$.

@@ -14,8 +14,8 @@ Formally, the unique Kronecker power is defined as:
 
 where:
 
-- $\mathbf{x}^{[k]} = \underbrace{\mathbf{x} \otimes \mathbf{x} \otimes \cdots \otimes \mathbf{x}}_{k \text{ times}}$ is the $k$-th Kronecker power of $\mathbf{x}$.
-- $\mathrm{vec}_{\text{unique}}$ extracts only the unique monomials, considering that the variables commute (e.g., $x_i x_j = x_j x_i$).
+- the term $\mathbf{x}^{[k]} = \underbrace{\mathbf{x} \otimes \mathbf{x} \otimes \cdots \otimes \mathbf{x}}_{k \text{ times}}$ is the $k$-th Kronecker power of $\mathbf{x}$.
+- and $\mathrm{vec}_{\text{unique}}$ extracts only the unique monomials, considering that the variables commute (e.g., $x_i x_j = x_j x_i$).
 
 The length of $\mathbf{x}^{\langle k \rangle}$ is given by the multiset coefficient (number of combinations with repetition):
 

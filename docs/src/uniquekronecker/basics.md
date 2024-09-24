@@ -17,7 +17,7 @@ We define the basic syntax for the general Kronecker product and unique Kronecke
 ```math
 \begin{align}
     \mathbf{x}^{[k]} &= \underbrace{\mathbf{x} \otimes \cdots \otimes \mathbf{x}}_{k-\text{times}} \in \mathbb{R}^{n^k}, \\
-    \mathbf{x}^{\angle k \rangle} &= \underbrace{\mathbf{x} \oslash \cdots \oslash \mathbf{x}}_{k-\text{times}} \in \mathbb{R}^{\binom{n+k-1}{k}}
+    \mathbf{x}^{\langle k \rangle} &= \underbrace{\mathbf{x} \oslash \cdots \oslash \mathbf{x}}_{k-\text{times}} \in \mathbb{R}^{\binom{n+k-1}{k}}
 \end{align}
 ```math
 
