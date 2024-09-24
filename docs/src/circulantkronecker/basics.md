@@ -164,7 +164,7 @@ Consider vectors $\mathbf{x}, \mathbf{y} \in \mathbb{R}^2$:
 
 2. **Apply the Elimination Matrix**:
 
-   - Use the elimination matrix \(\mathbf{L}_{2,2}\) to extract unique terms:
+   - Use the elimination matrix $\mathbf{L}_{2,2}$ to extract unique terms:
 
      ```math
      \text{Unique Elements} = \mathbf{L}_{2,2} (\mathbf{x} \circledast \mathbf{y})
