@@ -347,7 +347,8 @@ julia> duplicate(A2 * D2, 2)
 2×4 Matrix{Float64}:
  0.508599  1.54095   0.0  1.31028
  0.409402  0.459055  0.0  0.255038
-````
+```
+
 """
 function duplicate(A::AbstractArray, p::Int)
     n = size(A, 1)
