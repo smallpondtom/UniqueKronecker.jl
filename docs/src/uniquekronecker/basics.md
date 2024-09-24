@@ -5,9 +5,7 @@
 The unique Kronecker product is a math operation which is similar to the Kronecker product but eliminates all the redundant terms appearing due to terms invariant under index permutations. This is easiest to understand through an example.
 
 ```@raw html
-<img src="../images/unique_kronecker_example.png"
-     alt="unique kronecker example"
-     style="float: left; margin-right: 10px;" />
+<img src="../../images/unique_kronecker_example.png" alt="unique kronecker example" style="float: left; margin-right: 10px;" />
 ```
 
 The example above shows the unique Kronecker product for a vector of $\mathbf{x}\in\mathbb{R}^3$. For a standard Kronecker product the resulting vector becomes a 9-dimensional vector, and we have a 6-dimensional vector when using the unique Kronecker product. Which shows how the unique Kronecker product eliminates 3 of the redundant terms.
@@ -47,9 +45,7 @@ xku = ⊘(x, k)
 Another concept we need to define is the vectorization and half-vectorization operators $\mathrm{vec}(\cdot)$ and $\mathrm{vech}(\cdot)$, respectively. The vectorization operator flattens a matrix $\mathbf{A}\in\mathbb{R}^{m\times n}$ in the column direction creating a vector of size $mn$. On the other hand, the half-vectorization operator vectorizes the matrix but only half of it or discarding the supradiagonal entries. These operations are strongly related to the second-order Kronecker and unique Kronecker products, and those relationships are described in the picture below.
 
 ```@raw html
-<img src="../images/vectorize_and_kronecker.png"
-     alt="unique kronecker example"
-     style="float: left; margin-right: 10px;" />
+<img src="../../images/vectorize_and_kronecker.png" alt="unique kronecker example" style="float: left; margin-right: 10px;" />
 ```
 
 The vectorization operator is already defined in the `LinearAlgebra` package as the function `vec`, but we define the functions `vech` for the half-vectorization operator and `invec` function for the inverse-vectorization operator that reverses the vectorization.

@@ -10,10 +10,7 @@ The **Commutation Matrix** $\mathbf{K}_{m,n} \in \mathbb{R}^{mn \times mn}$ is d
 \mathbf{K}_{m,n} = \sum_{i=1}^m \sum_{j=1}^n \mathbf{E}_{ij} \otimes \mathbf{E}_{ji}
 ```
 
-where:
-
-- $\mathbf{E}_{ij}$ is the elementary matrix of size $m \times n$ with a one in the $(i, j)$-th position and zeros elsewhere.
-- $\otimes$ denotes the Kronecker product.
+where $\mathbf{E}_{ij}$ is the elementary matrix of size $m \times n$ with a one in the $(i, j)$-th position and zeros elsewhere.
 
 **Properties of the Commutation Matrix:**
 

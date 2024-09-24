@@ -1,6 +1,15 @@
 # UniqueKronecker.jl
 
+
+<div align="center">
+
+[![Powered by ACE Lab](https://img.shields.io/badge/powered%20by-ACE%20Lab-pink)](https://sites.google.com/view/elizabeth-qian/research/ace-group)
+[![CI](https://github.com/smallpondtom/UniqueKronecker.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/smallpondtom/UniqueKronecker.jl/actions/workflows/CI.yml)
+[![codecov](https://codecov.io/gh/smallpondtom/UniqueKronecker.jl/graph/badge.svg?token=30U7MIN4RM)](https://codecov.io/gh/smallpondtom/UniqueKronecker.jl)
+[![Doc](https://img.shields.io/badge/docs-stable-blue.svg)](https://smallpondtom.github.io/UniqueKronecker.jl/stable)
+[![Doc](https://img.shields.io/badge/docs-dev-green.svg)](https://smallpondtom.github.io/UniqueKronecker.jl/dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+</div>
 
 ## Overview
 
