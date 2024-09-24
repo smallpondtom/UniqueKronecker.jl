@@ -12,8 +12,8 @@ The elimination matrix $\mathbf{L}_n$ is a unique matrix of size $\left(\tfrac{n
 
 where:
 
-- $\mathrm{vec}(\mathbf{S})$ stacks all columns of $\mathbf{S}$ into a single vector of length $n^2$.
-- $\mathrm{vech}(\mathbf{S})$ stacks only the elements on and below (or above) the main diagonal into a vector of length $\tfrac{n(n+1)}{2}$.
+- operator $\mathrm{vec}(\mathbf{S})$ stacks all columns of $\mathbf{S}$ into a single vector of length $n^2$.
+- and $\mathrm{vech}(\mathbf{S})$ stacks only the elements on and below (or above) the main diagonal into a vector of length $\tfrac{n(n+1)}{2}$.
 
 The elimination matrix effectively "eliminates" the redundant elements in $\mathrm{vec}(\mathbf{S})$, preserving only the unique components.
 

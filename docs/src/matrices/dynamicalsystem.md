@@ -179,9 +179,9 @@ By rearranging, we can express the nonlinear term using the unique Kronecker pro
 
 where:
 
-  ```math
-      \mathbf{u}^{\langle 2 \rangle} = [u_1^2, ~u_1 u_2, ~\dots, ~u_n^2]^\top
-  ```
+```math
+    \mathbf{u}^{\langle 2 \rangle} = [u_1^2, ~u_1 u_2, ~\dots, ~u_n^2]^\top
+```
 
 This formulation allows us to apply polynomial system analysis tools to the viscous Burgers' equation, enabling efficient simulation and control design for systems modeled by this equation.
 
