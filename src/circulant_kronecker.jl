@@ -73,6 +73,8 @@ Compute the circulant Kronecker product of a set of matrices, where each matrix 
 
 ## Arguments
 - `Xmat::AbstractArray{T}...`: Snapshot matrices to compute the circulant Kronecker product.
+- `redundant::Bool=true`: If `true`, return the circulant Kronecker product as-is. If `false`, 
+  return the circulant Kronecker product with redundant rows removed.
 
 ## Returns
 - `result`: The circulant Kronecker product of the snapshot matrices.
@@ -101,13 +103,13 @@ function circulant_kron_snapshot_matrix(Xmat::AbstractArray{T}...; redundant=tru
     X = reduce(hcat, tmp)
 
     if redundant
-        return X
+        return X 
     else
         k = length(Xmat)
         n = size(Xmat[1], 1)
         Lnk = elimat(n, k)
         if k == 2 || n == 2
-            return Lnk * X
+            return Lnk * X  
         else
             Snk = symmtzrmat(n, k)
             return Lnk * Snk * X
