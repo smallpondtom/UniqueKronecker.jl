@@ -142,7 +142,7 @@ When working with circulant Kronecker products, especially in the context of sym
 
 
    ```math
-   \text{Unique Elements} = \mathbf{L}_{n,k}\times\mathbf{S}_{n,k}\times\left( \mathbf{x}_1 \circledast \mathbf{x}_2 \circledast \dots \circledast \mathbf{x}_n \right)
+   \text{Unique Elements} = \mathbf{L}_{n,k} \times \mathbf{S}_{n,k} \times \left( \mathbf{x}_1 \circledast \mathbf{x}_2 \circledast \dots \circledast \mathbf{x}_n \right)
    ```
 
 #### From Unique Representation to Full Kronecker Product
