@@ -140,7 +140,6 @@ When working with circulant Kronecker products, especially in the context of sym
 
 3. **Apply the Elimination Matrix**: Multiply the result by the elimination matrix $\mathbf{L}_{n,k}$ to extract the unique elements.
 
-
    ```math
    \text{Unique Elements} = \mathbf{L}_{n,k} \times \mathbf{S}_{n,k} \times \left( \mathbf{x}_1 \circledast \mathbf{x}_2 \circledast \dots \circledast \mathbf{x}_n \right)
    ```
