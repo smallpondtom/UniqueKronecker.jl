@@ -3,6 +3,7 @@ using UniqueKronecker
 using DocumenterCitations
 
 ENV["JULIA_DEBUG"] = "Documenter"
+DocMeta.setdocmeta!(UniqueKronecker, :DocTestSetup, :(using UniqueKronecker); recursive=true)
 
 PAGES = [
     "Home" => "index.md",
@@ -25,8 +26,10 @@ PAGES = [
 bib = CitationBibliography(joinpath(@__DIR__, "src", "refs.bib"))
 
 makedocs(
-    sitename = "UniqueKronecker.jl",
+    sitename = "Unique Kronecker",
     clean = true, doctest = false, linkcheck = false,
+    authors = "Tomoki Koike <tkoike45@gmail.com>",
+    repo = Remotes.GitHub("smallpondtom", "UniqueKronecker.jl"),
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
         edit_link = "https://github.com/smallpondtom/UniqueKronecker.jl",
@@ -36,16 +39,16 @@ makedocs(
         ],
         # analytics = "G-B2FEJZ9J99",
     ),
-    modules = [
-        UniqueKronecker,
-    ],
+    modules = [UniqueKronecker,],
     pages = PAGES,
     plugins=[bib],
 )
 
 deploydocs(
-    repo = "github.com/smallpondtom/UniqueKronecker.jl.git",
+    repo = "github.com/smallpondtom/UniqueKronecker.jl",
+    target = "build",
     branch = "gh-pages",
     devbranch = "main",
+    push_preview = true,
     # Add other deployment options as needed
 )
