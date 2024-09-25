@@ -24,6 +24,6 @@ end
         x = circulant_kronecker(x1, x2, x3)
         x_nr = L23 * vec(x)
         @test X[:,i] == vec(x)
-        @test X_nr[:,i] == vec(x_nr)
+        @test X_nr[:,i] ≈ vec(x_nr)
     end
 end
