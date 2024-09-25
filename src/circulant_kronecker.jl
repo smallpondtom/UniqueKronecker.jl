@@ -77,7 +77,7 @@ Compute the circulant Kronecker product of a set of matrices, where each matrix 
 ## Returns
 - `result`: The circulant Kronecker product of the snapshot matrices.
 """
-function circulant_kron_snapshot_matrix(Xmat::AbstractArray{T}...) where {T<:Number}
+function circulant_kron_snapshot_matrix(Xmat::AbstractArray{T}...; redundant=true) where {T<:Number}
     # Ensure all matrices have the same number of columns
     ncols = size(Xmat[1], 2)
     for X in Xmat[2:end]
@@ -98,5 +98,14 @@ function circulant_kron_snapshot_matrix(Xmat::AbstractArray{T}...) where {T<:Num
     # Apply circulant_kron_timestep to each set of columns
     tmp = [circulant_kron_timestep(cols...) for cols in zipped_columns]
     # Concatenate the results horizontally
-    return reduce(hcat, tmp)
+    X = reduce(hcat, tmp)
+
+    if redundant
+        return X
+    else
+        k = length(Xmat)
+        n = size(Xmat[1], 1)
+        Lnk = elimat(n, k)
+        return Lnk * X
+    end
 end
