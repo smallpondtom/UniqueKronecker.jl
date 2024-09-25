@@ -65,18 +65,18 @@ Here, $\mathbf{D}_{n,k}$ is a matrix of size $\left(n^k \times \tbinom{n + k - 1
 
 **Example:**
 
-For $n = 2$ and $k = 2$, let $\mathbf{x} = [x_1, x_2]^\top$. Then:
+For $n = 2$ and $k = 2$, let $\mathbf{x} = [x_1, ~x_2]^\top$. Then:
 
 - **Unique Kronecker Power:**
 
   ```math
-      \mathbf{x}^{\langle 2 \rangle} = [x_1^2, x_1 x_2, x_2^2]^\top
+      \mathbf{x}^{\langle 2 \rangle} = [x_1^2, ~x_1 x_2, ~x_2^2]^\top
   ```
 
 - **Standard Kronecker Power:**
 
   ```math
-      \mathbf{x}^{[2]} = [x_1^2, x_1 x_2, x_2 x_1, x_2^2]^\top
+      \mathbf{x}^{[2]} = [x_1^2, ~x_1 x_2, ~x_2 x_1, ~x_2^2]^\top
   ```
 
 The duplication matrix $\mathbf{D}_{2,2}$ duplicates the mixed term $x_1 x_2$ to account for both $x_1 x_2$ and $x_2 x_1$ in the standard Kronecker power:
