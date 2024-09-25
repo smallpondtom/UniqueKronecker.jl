@@ -106,6 +106,7 @@ function circulant_kron_snapshot_matrix(Xmat::AbstractArray{T}...; redundant=tru
         k = length(Xmat)
         n = size(Xmat[1], 1)
         Lnk = elimat(n, k)
-        return Lnk * X
+        Snk = symmtzrmat(n, k)
+        return Lnk * Snk * X
     end
 end

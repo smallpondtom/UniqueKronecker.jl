@@ -136,10 +136,13 @@ When working with circulant Kronecker products, especially in the context of sym
 
 1. **Compute the Full Circulant Kronecker Product**: Use the `circulant_kronecker` function to compute the sum over all cyclic permutations.
 
-2. **Apply the Elimination Matrix**: Multiply the result by the elimination matrix $\mathbf{L}_{n,k}$ to extract the unique elements.
+2. **Apply the Symmetrizer Matrix**: Multiply the result by the symmetrizer matrix $\mathbf{S}_{n,k}$ to make the redundant elements symmetric. Unlike the unique Kronecker product, this must be explicitly applied for circulant Kronecker products.
+
+3. **Apply the Elimination Matrix**: Multiply the result by the elimination matrix $\mathbf{L}_{n,k}$ to extract the unique elements.
+
 
    ```math
-   \text{Unique Elements} = \mathbf{L}_{n,k} \left( \mathbf{x}_1 \circledast \mathbf{x}_2 \circledast \dots \circledast \mathbf{x}_n \right)
+   \text{Unique Elements} = \mathbf{L}_{n,k}\times\mathbf{S}_{n,k}\times\left( \mathbf{x}_1 \circledast \mathbf{x}_2 \circledast \dots \circledast \mathbf{x}_n \right)
    ```
 
 #### From Unique Representation to Full Kronecker Product
@@ -162,12 +165,12 @@ Consider vectors $\mathbf{x}, \mathbf{y} \in \mathbb{R}^2$:
    \mathbf{x} \circledast \mathbf{y} = \mathbf{x} \otimes \mathbf{y} + \mathbf{y} \otimes \mathbf{x}
    ```
 
-2. **Apply the Elimination Matrix**:
+2. **Apply the Symmetrizer and Elimination Matrix**:
 
-   - Use the elimination matrix $\mathbf{L}_{2,2}$ to extract unique terms:
+   - Use $\mathbf{S}_{2,2}$ and $\mathbf{L}_{2,2}$ to extract unique terms:
 
      ```math
-     \text{Unique Elements} = \mathbf{L}_{2,2} (\mathbf{x} \circledast \mathbf{y})
+     \text{Unique Elements} = \mathbf{L}_{2,2}~\mathbf{S}_{2,2} (\mathbf{x} \circledast \mathbf{y})
      ```
 
 3. **Result**:
