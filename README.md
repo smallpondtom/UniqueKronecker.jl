@@ -46,7 +46,7 @@ Here, $x_1 x_2$ and $x_2 x_1$ are considered the same and included only once.
 
 The package provides functions to compute the associated coefficient matrices:
 
-- **Polynomial Matrix $\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $x\in\mathbb{R}^2$.
+- **Polynomial Matrix $\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $x\in\mathbb{R}^n$.
 - **Kronecker Coefficient Matrix $\mathbf{A}_2 \in \mathbb{R}^{n \times n^2}$**: Relates the unique Kronecker product to the standard Kronecker product, including coefficients for redundant terms.
 
 These matrices are useful for applications in polynomial regression, symmetric tensor computations, and vectorization of symmetric matrices.
