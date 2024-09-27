@@ -44,17 +44,17 @@ Here, $x_1 x_2$ and $x_2 x_1$ are considered the same and included only once.
 
 ### Coefficient Matrices
 
-The package provides functions to compute the associated coefficient matrices:
+The package provides functions to compute the associated coefficient matrices. For example, in a second-order Kronecker product (or quadratic polynomial) case:
 
-- **Polynomial Matrix $\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $x\in\mathbb{R}^n$.
-- **Kronecker Coefficient Matrix $\mathbf{A}_2 \in \mathbb{R}^{n \times n^2}$**: Relates the unique Kronecker product to the standard Kronecker product, including coefficients for redundant terms.
+- **Unique Kronecker Coefficient Matrix $\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $x\in\mathbb{R}^n$.
+- **Kronecker Coefficient Matrix $\mathbf{A}_2 \in \mathbb{R}^{n \times n^2}$**: Represents the mapping of the standard Kronecker product back to the original vector $x\in\mathbb{R}^n$.
 
 These matrices are useful for applications in polynomial regression, symmetric tensor computations, and vectorization of symmetric matrices.
 
 ## Features
 
 - Compute the unique Kronecker product for vectors of any dimension $n$ and any repeated (Kronecker) order $k$.
-- Generate the associated polynomial and Kronecker coefficient matrices $\mathbf{A}_{2u}$ and $\mathbf{A}_2$.
+- Generate the associated polynomial and Kronecker coefficient matrices $\mathbf{A}_{ku}$ and $\mathbf{A}_k$ where $k$ is the order of the Kronecker product.
 - Convert between unique and standard Kronecker products.
 - Utility functions for polynomial modeling and symmetric tensor operations.
 
@@ -100,47 +100,47 @@ println(x_unique_kron)
 
 ### Computing Coefficient Matrices
 
-#### Polynomial Matrix $H$
+#### Polynomial Matrix $A_2$
 
-Compute the polynomial coefficient matrix $H$:
+Compute the polynomial coefficient matrix $A_2$:
 
 ```julia
 n = 3
-H = zeros(n,n^2)
+A2 = zeros(n,n^2)
 for i in 1:n
     x = rand(n)
-    H[i,:] = kron(x,x)
+    A2[i,:] = kron(x,x)
 end
 
-println(H)
+println(A2)
 # Output: A matrix of size (3, 9) for this example
 ```
 
-#### Unique/Nonredundant Polynomial Coefficient Matrix $F$
+#### Unique/Nonredundant Polynomial Coefficient Matrix $A_{2u}$
 
-Convert the polynomial matrix $H$ into the unique polynomial coefficient matrix $F$:
+Convert the polynomial matrix $A_2$ into the unique polynomial coefficient matrix $A_{2u}$:
 
 ```julia
-F = eliminate(H, 2)
+A2u = eliminate(A2, 2)
 
-println(F)
+println(A2u)
 # Output: A matrix of size (3, 6) for this example
 ```
 
 This can be converted back
 
 ```julia
-H = duplicate(F, 2)
-println(H)
-# Output: the H matrix
+A2 = duplicate(A2u, 2)
+println(A2)
+# Output: the A2 matrix
 ```
 
 To make the coefficients symmetric for redundant terms use `duplicate_symmetric`
 
 ```julia
-Hs = duplicate_symmetric(F, 2)
-println(Hs)
-# Output: the H matrix with symmetric coefficients
+A2s = duplicate_symmetric(A2u, 2)
+println(A2s)
+# Output: the A2 matrix with symmetric coefficients
 ```
 
 ### Relationship Between Matrices
@@ -148,7 +148,7 @@ println(Hs)
 The following relationship holds:
 
 $$
-F \cdot (x \oslash x) = H \cdot (x \otimes x)
+A_{2u} \cdot (x \oslash x) = A_2 \cdot (x \otimes x)
 $$
 
 This allows mapping between the unique Kronecker product space and the standard Kronecker product space.
@@ -170,7 +170,7 @@ println(x_unique_kron_k3)
 
 - **Polynomial Regression**: Efficient computation of polynomial features without redundant terms.
 - **Symmetric Tensor Computations**: Simplifies operations involving symmetric tensors.
-- **Statistical Modeling**: Construction of design matrices with interaction terms.
+- **Model Reduction**: Construction of reduced-order models with polynomial structures.
 - **Machine Learning**: Feature engineering for higher-order interactions.
 
 ## Contributing
