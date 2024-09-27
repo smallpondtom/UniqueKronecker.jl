@@ -24,7 +24,7 @@
 
 The standard Kronecker product of a vector $x \in \mathbb{R}^n$ with itself, $\text{kron}(x, x) = x \otimes x$, produces all possible pairwise products of its elements, resulting in redundant terms when $x_i x_j = x_j x_i$.
 
-The **unique Kronecker product**, denoted here as $\text{unique kron}(x,x) = x \oslash x$, eliminates these redundancies by considering only unique combinations of indices. For example:
+The **unique Kronecker product**, denoted here as $\text{uniquekron}(x,x) = x \oslash x$, eliminates these redundancies by considering only unique combinations of indices. For example:
 
 For $\mathbf{x} \in \mathbb{R}^2$:
 
