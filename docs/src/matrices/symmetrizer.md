@@ -62,6 +62,6 @@ The symmetrizer matrix is particularly useful in the following contexts:
 
    When converting between unique and redundant representations of polynomial operators, the symmetrizer matrix ensures that coefficients are duplicated symmetrically, maintaining the symmetry of the operator.
 
-```docs
+```@docs
 duplicate_symmetric
 ```
