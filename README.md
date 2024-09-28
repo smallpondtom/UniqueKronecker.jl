@@ -118,7 +118,7 @@ println(A2)
 
 #### Unique/Nonredundant Polynomial Coefficient Matrix $A_{2u}$
 
-Convert the polynomial matrix $\mathbf{A}_2$ into the unique polynomial coefficient matrix $\mathbf{A}_{2u}$:
+Convert the polynomial matrix $A_2$ into the unique polynomial coefficient matrix $A_{2u}$:
 
 ```julia
 A2u = eliminate(A2, 2)
