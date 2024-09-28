@@ -22,7 +22,7 @@
 
 ### What is the Unique Kronecker Product?
 
-The standard Kronecker product of a vector $\mathbf{x} \in \mathbb{R}^n$ with itself, $\text{kron}(\mathbf{x}, \mathbf{x}) = \mathbf{x} \otimes \mathbf{x}$, produces all possible pairwise products of its elements, resulting in redundant terms when $x_i x_j = x_j x_i$.
+The standard Kronecker product of a vector $\mathsf{\mathbf{x}} \in \mathbb{R}^n$ with itself, $\text{kron}(\mathbf{x}, \mathbf{x}) = \mathbf{x} \otimes \mathbf{x}$, produces all possible pairwise products of its elements, resulting in redundant terms when $x_i x_j = x_j x_i$.
 
 The **unique Kronecker product**, denoted here as $\text{uniquekron}(\mathbf{x},\mathbf{x}) = \mathbf{x} \oslash \mathbf{x}$, eliminates these redundancies by considering only unique combinations of indices. For example:
 
