@@ -22,9 +22,9 @@
 
 ### What is the Unique Kronecker Product?
 
-The standard Kronecker product of a vector $x \in \mathbb{R}^n$ with itself, $\text{kron}(x, x) = x \otimes x$, produces all possible pairwise products of its elements, resulting in redundant terms when $x_i x_j = x_j x_i$.
+The standard Kronecker product of a vector $\mathbf{x} \in \mathbb{R}^n$ with itself, $\text{kron}(\mathbf{x}, \mathbf{x}) = \mathbf{x} \otimes \mathbf{x}$, produces all possible pairwise products of its elements, resulting in redundant terms when $x_i x_j = x_j x_i$.
 
-The **unique Kronecker product**, denoted here as $\text{uniquekron}(x,x) = x \oslash x$, eliminates these redundancies by considering only unique combinations of indices. For example:
+The **unique Kronecker product**, denoted here as $\text{uniquekron}(\mathbf{x},\mathbf{x}) = \mathbf{x} \oslash \mathbf{x}$, eliminates these redundancies by considering only unique combinations of indices. For example:
 
 For $\mathbf{x} \in \mathbb{R}^2$:
 
@@ -46,8 +46,8 @@ Here, $x_1 x_2$ and $x_2 x_1$ are considered the same and included only once.
 
 The package provides functions to compute the associated coefficient matrices. For example, in a second-order Kronecker product (or quadratic polynomial) case:
 
-- **Unique Kronecker Coefficient Matrix $\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $x\in\mathbb{R}^n$.
-- **Kronecker Coefficient Matrix $\mathbf{A}_2 \in \mathbb{R}^{n \times n^2}$**: Represents the mapping of the standard Kronecker product back to the original vector $x\in\mathbb{R}^n$.
+- **Unique Kronecker Coefficient Matrix $\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}$**: Represents the mapping of the unique Kronecker product back to the original vector $\mathbf{x}\in\mathbb{R}^n$.
+- **Kronecker Coefficient Matrix $\mathbf{A}_2 \in \mathbb{R}^{n \times n^2}$**: Represents the mapping of the standard Kronecker product back to the original vector $\mathbf{x}\in\mathbb{R}^n$.
 
 These matrices are useful for applications in polynomial regression, symmetric tensor computations, and vectorization of symmetric matrices.
 
@@ -100,9 +100,9 @@ println(x_unique_kron)
 
 ### Computing Coefficient Matrices
 
-#### Polynomial Matrix $A_2$
+#### Polynomial Matrix $\mathbf{A}_2$
 
-Compute the polynomial coefficient matrix $A_2$:
+Compute the polynomial coefficient matrix $\mathbf{A}_2$:
 
 ```julia
 n = 3
@@ -118,7 +118,7 @@ println(A2)
 
 #### Unique/Nonredundant Polynomial Coefficient Matrix $A_{2u}$
 
-Convert the polynomial matrix $A_2$ into the unique polynomial coefficient matrix $A_{2u}$:
+Convert the polynomial matrix $\mathbf{A}_2$ into the unique polynomial coefficient matrix $\mathbf{A}_{2u}$:
 
 ```julia
 A2u = eliminate(A2, 2)
@@ -148,7 +148,7 @@ println(A2s)
 The following relationship holds:
 
 $$
-A_{2u} \cdot (x \oslash x) = A_2 \cdot (x \otimes x)
+\mathbf{A}_{2u} \cdot (\mathbf{x} \oslash \mathbf{x}) = \mathbf{A}_2 \cdot (\mathbf{x} \otimes \mathbf{x})
 $$
 
 This allows mapping between the unique Kronecker product space and the standard Kronecker product space.

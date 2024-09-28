@@ -4,9 +4,9 @@
 
 ### What is the Unique Kronecker Product?
 
-The standard Kronecker product of a vector ``x \in \mathbb{R}^n`` with itself, ``\text{kron}(x, x) = x \otimes x``, produces all possible pairwise products of its elements, resulting in redundant terms when ``x_i x_j = x_j x_i``.
+The standard Kronecker product of a vector ``\mathbf{x} \in \mathbb{R}^n`` with itself, ``\text{kron}(\mathbf{x}, \mathbf{x}) = \mathbf{x} \otimes \mathbf{x}``, produces all possible pairwise products of its elements, resulting in redundant terms when ``x_i x_j = x_j x_i``.
 
-The **unique Kronecker product**, denoted here as ``x^{\langle k \rangle} = x \oslash x``, eliminates these redundancies by considering only unique combinations of indices. For example:
+The **unique Kronecker product**, denoted here as ``\text{uniquekron}(\mathbf{x},\mathbf{x}) = \mathbf{x} \oslash \mathbf{x}``, eliminates these redundancies by considering only unique combinations of indices. For example:
 
 For ``\mathbf{x} \in \mathbb{R}^2``:
 
@@ -28,8 +28,8 @@ Here, ``x_1 x_2`` and ``x_2 x_1`` are considered the same and included only once
 
 The package provides functions to compute the associated coefficient matrices:
 
-- **Polynomial Matrix ``\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}``**: Represents the mapping of the unique Kronecker product back to the original vector ``x\in\mathbb{R}^2``.
-- **Kronecker Coefficient Matrix ``\mathbf{A}_2 \in \mathbb{R}^{n \times n^2}``**: Relates the unique Kronecker product to the standard Kronecker product, including coefficients for redundant terms.
+- **Unique Kronecker Coefficient Matrix ``\mathbf{A}_{2u} \in \mathbb{R}^{n \times \frac{n(n+1)}{2}}``**: Represents the mapping of the unique Kronecker product back to the original vector ``\mathbf{x}\in\mathbb{R}^2``.
+- **Kronecker Coefficient Matrix ``\mathbf{A}_2 \in \mathbb{R}^{n \times n^2}``**: Represents the mapping of the Kronecker product back to the original vector.
 
 These matrices are useful for applications in polynomial regression, symmetric tensor computations, and vectorization of symmetric matrices.
 
@@ -82,9 +82,9 @@ println(x_unique_kron)
 
 ### Computing Coefficient Matrices
 
-#### Polynomial Matrix ``H``
+#### Polynomial Matrix ``\mathbf{A}_2``
 
-Compute the polynomial coefficient matrix ``H``:
+Compute the polynomial coefficient matrix ``\mathbf{A}_2``:
 
 ```julia
 n = 3
@@ -98,30 +98,30 @@ println(H)
 # Output: A matrix of size (3, 9) for this example
 ```
 
-#### Unique/Nonredundant Polynomial Coefficient Matrix ``F``
+#### Unique/Nonredundant Polynomial Coefficient Matrix ``\mathbf{A}_{2u}``
 
-Convert the polynomial matrix ``H`` into the unique polynomial coefficient matrix ``F``:
+Convert the polynomial matrix ``\mathbf{A}_2`` into the unique polynomial coefficient matrix ``\mathbf{A}_{2u}``:
 
 ```julia
-F = eliminate(H, 2)
+A2u = eliminate(A2, 2)
 
-println(F)
+println(A2u)
 # Output: A matrix of size (3, 6) for this example
 ```
 
 This can be converted back
 
 ```julia
-H = duplicate(F, 2)
-println(H)
+A2 = duplicate(A2u, 2)
+println(A2)
 # Output: the H matrix
 ```
 
 To make the coefficients symmetric for redundant terms use `duplicate_symmetric`
 
 ```julia
-Hs = duplicate_symmetric(F, 2)
-println(Hs)
+A2s = duplicate_symmetric(A2u, 2)
+println(A2s)
 # Output: the H matrix with symmetric coefficients
 ```
 
@@ -130,7 +130,7 @@ println(Hs)
 The following relationship holds:
 
 ```math
-F \cdot (x \oslash x) = H \cdot (x \otimes x)
+\mathbf{A}_{2u} \cdot (\mathbf{x} \oslash \mathbf{x}) = \mathbf{A}_2 \cdot (\mathbf{x} \otimes \mathbf{x})
 ```
 
 This allows mapping between the unique Kronecker product space and the standard Kronecker product space.
@@ -152,7 +152,7 @@ println(x_unique_kron_k3)
 
 - **Polynomial Regression**: Efficient computation of polynomial features without redundant terms.
 - **Symmetric Tensor Computations**: Simplifies operations involving symmetric tensors.
-- **Statistical Modeling**: Construction of design matrices with interaction terms.
+- **Model Reduction**: Construction of reduced-order models with polynomial structures.
 - **Machine Learning**: Feature engineering for higher-order interactions.
 
 ## Contributing
