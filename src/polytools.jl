@@ -1,5 +1,5 @@
 export dupmat, symmtzrmat, elimat, commat, eliminate, duplicate, duplicate_symmetric
-export makePolyOp
+export makePolyOp, makePolyOp_faster, makePolyOp_parallel
 export kron_snapshot_matrix, unique_kron_snapshot_matrix
 
 
@@ -471,6 +471,135 @@ function makePolyOp(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::Abstra
 
     if nonredundant
         return eliminate(A, p)
+    else
+        return A
+    end
+end
+
+
+function makePolyOp_faster(n::Int, inds::AbstractVector{<:NTuple{P, <:Int}}, vals::AbstractVector{<:Real};
+                    nonredundant::Bool=true, symmetric::Bool=true) where P
+    p = P - 1
+    @assert length(inds) == length(vals) "The length of indices and values must be the same."
+
+    # Initialize the tensor S as a dictionary to save memory
+    S = Dict{NTuple{P, Int}, Float64}()
+
+    # Precompute the LinearIndices for column indexing
+    dims = ntuple(_ -> n, p)
+    LI = LinearIndices(dims)
+
+    # Iterate over indices and values (sequentially to preserve order)
+    for idx in eachindex(vals)
+        ind = inds[idx]
+        val = vals[idx]
+        if symmetric
+            element_idx = ind[1:end-1]
+            last_idx = ind[end]
+            # Generate all unique permutations
+            perms = unique(permutations(element_idx))
+            contribution = val / length(perms)
+            for perm in perms
+                key = (perm..., last_idx)
+                # Overwrite the value to match the original function's behavior
+                S[key] = contribution
+            end
+        else
+            key = ind
+            S[key] = val
+        end
+    end
+
+    # Build the sparse matrix A directly from the dictionary
+    ncols = n^p
+    A = spzeros(n, ncols)
+
+    for (key, val) in S
+        idxs = key
+        row = idxs[end]
+        col_idxs = idxs[1:end-1]
+        col = LI[col_idxs...]
+        A[row, col] = val  # Assign the value directly
+    end
+
+    if nonredundant
+        return eliminate(A, p)  # Replace with your actual implementation
+    else
+        return A
+    end
+end
+
+
+function makePolyOp_parallel(n::Int, inds::AbstractVector{<:NTuple{P, <:Int}}, vals::AbstractVector{<:Real};
+                             nonredundant::Bool=true, symmetric::Bool=true) where P
+    p = P - 1
+    @assert length(inds) == length(vals) "The length of indices and values must be the same."
+
+    # Number of threads
+    nthreads = Threads.nthreads()
+    if nthreads == 1
+        @warn "Only one thread is available. Using the sequential version."
+        return makePolyOp_faster(n, inds, vals, nonredundant=nonredundant, symmetric=symmetric)
+    end
+    # Initialize per-thread dictionaries to store partial results
+    S_per_thread = [Dict{NTuple{P, Int}, Tuple{Int, Float64}}() for _ in 1:nthreads]
+
+    # Precompute the LinearIndices for column indexing
+    dims = ntuple(_ -> n, p)
+    LI = LinearIndices(dims)
+
+    # Threaded loop over indices and values
+    Base.Threads.@threads for idx in eachindex(vals)
+        ind = inds[idx]
+        val = vals[idx]
+        tid = Base.Threads.threadid()
+        S_local = S_per_thread[tid]
+        if symmetric
+            element_idx = ind[1:end-1]
+            last_idx = ind[end]
+            # Generate all unique permutations
+            perms = unique(permutations(element_idx))
+            contribution = val / length(perms)
+            for perm in perms
+                key = (perm..., last_idx)
+                # Overwrite if idx is greater or equal
+                if !haskey(S_local, key) || idx >= S_local[key][1]
+                    S_local[key] = (idx, contribution)
+                end
+            end
+        else
+            key = ind
+            # Overwrite if idx is greater or equal
+            if !haskey(S_local, key) || idx >= S_local[key][1]
+                S_local[key] = (idx, val)
+            end
+        end
+    end
+
+    # Merge per-thread dictionaries into a single dictionary
+    S = Dict{NTuple{P, Int}, Tuple{Int, Float64}}()
+    for S_local in S_per_thread
+        for (key, (idx, contribution)) in S_local
+            if !haskey(S, key) || idx >= S[key][1]
+                S[key] = (idx, contribution)
+            end
+        end
+    end
+
+    # Build the sparse matrix A directly from the combined dictionary
+    ncols = n^p
+    A = spzeros(n, ncols)
+
+    for (key, (_idx, val)) in S
+        idxs = key
+        row = idxs[end]
+        col_idxs = idxs[1:end-1]
+        col = LI[col_idxs...]
+        A[row, col] = val  # Assign the value directly
+    end
+
+    if nonredundant
+        return eliminate(A, p)  # Ensure 'eliminate' function is defined elsewhere
     else
         return A
     end

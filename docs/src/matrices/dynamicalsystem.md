@@ -185,3 +185,11 @@ where:
 
 This formulation allows us to apply polynomial system analysis tools to the viscous Burgers' equation, enabling efficient simulation and control design for systems modeled by this equation.
 
+!!! Note
+    There are additional functions `makePolyOp_faster` and `makePolyOp_parallel` which are experimental functions designed to speed up the construction of polynomial operators. I am planning to improve these functions and do some benchmarks.
+
+
+```@docs
+makePolyOp_faster
+makePolyOp_parallel
+```
