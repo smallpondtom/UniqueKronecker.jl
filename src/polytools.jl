@@ -409,7 +409,7 @@ julia> duplicate_symmetric(A2 * D2, 2)
 2×4 Matrix{Float64}:
  0.508599  0.770477  0.770477  1.31028
  0.409402  0.229527  0.229527  0.255038
-````
+```
 """
 function duplicate_symmetric(A::AbstractArray, p::Int)
     n = size(A, 1)
