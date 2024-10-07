@@ -15,11 +15,11 @@ The example above shows the unique Kronecker product for a vector of $\mathbf{x}
 We define the basic syntax for the general Kronecker product and unique Kronecker product of order $k$ as follows:
 
 ```math
-\begin{align}
+\begin{align*}
     \mathbf{x}^{[k]} &= \underbrace{\mathbf{x} \otimes \cdots \otimes \mathbf{x}}_{k-\text{times}} \in \mathbb{R}^{n^k}, \\
     \mathbf{x}^{\langle k \rangle} &= \underbrace{\mathbf{x} \oslash \cdots \oslash \mathbf{x}}_{k-\text{times}} \in \mathbb{R}^{\binom{n+k-1}{k}}
-\end{align}
-```math
+\end{align*}
+```
 
 where $\mathbf{x}\in\mathbb{R}^n$. From this definition, we observe that the dimensions of the Kronecker product grows in the order of $n^k$ but the unique Kronecker grows in the order of $\binom{n+k-1}{k}$. The reduction in computational cost from this order difference becomes significantly obvious in higher-dimensions. 
 
