@@ -40,15 +40,15 @@
                 @test all(F .== Aku_1)
             end
 
-            Ak_2 = UniqueKronecker.makePolyOp_faster(n, idx, val, nonredundant=false, symmetric=true)
-            Aku_2 = UniqueKronecker.makePolyOp_faster(n, idx, val, nonredundant=true, symmetric=false)
-            @test all(Ak_1 .== Ak_2)
-            @test all(Aku_1 .== Aku_2)
+            # Ak_2 = UniqueKronecker.makePolyOp_faster(n, idx, val, nonredundant=false, symmetric=true)
+            # Aku_2 = UniqueKronecker.makePolyOp_faster(n, idx, val, nonredundant=true, symmetric=false)
+            # @test all(Ak_1 .== Ak_2)
+            # @test all(Aku_1 .== Aku_2)
 
-            Ak = UniqueKronecker.makePolyOp_parallel(n, idx, val, nonredundant=false, symmetric=true)
-            Aku = UniqueKronecker.makePolyOp_parallel(n, idx, val, nonredundant=true, symmetric=false)
-            @test all(Ak_1 .== Ak)
-            @test all(Aku_1 .== Aku)
+            # Ak = UniqueKronecker.makePolyOp_parallel(n, idx, val, nonredundant=false, symmetric=true)
+            # Aku = UniqueKronecker.makePolyOp_parallel(n, idx, val, nonredundant=true, symmetric=false)
+            # @test all(Ak_1 .== Ak)
+            # @test all(Aku_1 .== Aku)
         end
     end
 end
