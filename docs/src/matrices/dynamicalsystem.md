@@ -16,10 +16,10 @@ where $\mathbf{A}_{2u}\in\mathbb{R}^{n(n+1)/2}$ and $\mathbf{A}_{3u}\in\mathbb{R
 
 
 # Creating the Polynomial Operators
-This packages offers a built-in function that allows the construction of redundant and non-redundant polynomial operators generalized for the dimension of the system variable and order of the Kronecker product. This function is called `makePolyOp` which easily creates the matrices by accepting the indices and values as arguments.
+This packages offers a built-in function that allows the construction of redundant and non-redundant polynomial operators generalized for the dimension of the system variable and order of the Kronecker product. This function is called `make_poly_op` which easily creates the matrices by accepting the indices and values as arguments.
 
 ```@docs
-makePolyOp
+make_poly_op
 ```
 
 # Example
@@ -80,12 +80,12 @@ The cubic term arises from the $- \mu x_1^2 x_2$ component, which can be represe
 Thus, the Van der Pol oscillator fits into the polynomial dynamical system framework by capturing its nonlinear dynamics through the unique Kronecker product, facilitating analysis and simulation.
 
 !!! tip 
-    `UniqueKronecker.jl` provides a convenient function to construct the polynomial operators called `makePolyOp`. For example, you can construct the (redundant) cubic operator using the following command:
+    `UniqueKronecker.jl` provides a convenient function to construct the polynomial operators called `make_poly_op`. For example, you can construct the (redundant) cubic operator using the following command:
 
     ```@repl
-    using UniqueKronecker: makePolyOp
+    using UniqueKronecker: make_poly_op
     μ = 1.0
-    A3 = makePolyOp(2, [(1,1,2,2)], [μ])
+    A3 = make_poly_op(2, [(1,1,2,2)], [μ])
     ```
 
 ## Lorenz System
@@ -143,11 +143,11 @@ Where:
 In this form, the Lorenz system's nonlinear dynamics are captured using the unique Kronecker product, making it amenable to analysis using polynomial system techniques.
 
 !!! tip
-    The quadratic operator can be constructed using the `makePolyOp` function as follows:
+    The quadratic operator can be constructed using the `make_poly_op` function as follows:
 
     ```@repl
-    using UniqueKronecker: makePolyOp
-    A2 = makePolyOp(3, [(1,3,2), (1,2,3)], [-1, 1])
+    using UniqueKronecker: make_poly_op
+    A2 = make_poly_op(3, [(1,3,2), (1,2,3)], [-1, 1])
     ```
 
 ## Viscous Burgers' Equation
@@ -186,10 +186,10 @@ where:
 This formulation allows us to apply polynomial system analysis tools to the viscous Burgers' equation, enabling efficient simulation and control design for systems modeled by this equation.
 
 !!! Note
-    There are additional functions `makePolyOp_faster` and `makePolyOp_parallel` which are experimental functions designed to speed up the construction of polynomial operators. I am planning to improve these functions and do some benchmarks.
+    There are additional functions `make_poly_op_faster` and `make_poly_op_parallel` which are experimental functions designed to speed up the construction of polynomial operators. I am planning to improve these functions and do some benchmarks.
 
 
 ```@docs
-makePolyOp_faster
-makePolyOp_parallel
+make_poly_op_faster
+make_poly_op_parallel
 ```

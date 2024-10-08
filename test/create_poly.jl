@@ -4,8 +4,8 @@
 #     H = UniqueKronecker.makeQuadOp(3, idx, val, which_quad_term="H", symmetric=true)
 #     F = UniqueKronecker.makeQuadOp(3, idx, val, which_quad_term="F", symmetric=false)
 
-#     A2 = UniqueKronecker.makePolyOp(3, idx, val, nonredundant=false, symmetric=true)
-#     A2u = UniqueKronecker.makePolyOp(3, idx, val, nonredundant=true, symmetric=false)
+#     A2 = UniqueKronecker.make_poly_op(3, idx, val, nonredundant=false, symmetric=true)
+#     A2u = UniqueKronecker.make_poly_op(3, idx, val, nonredundant=true, symmetric=false)
 #     @test all(H .== A2)
 #     @test all(F .== A2u)
 # end
@@ -33,20 +33,20 @@
                 F = UniqueKronecker.makeCubicOp(n, idx, val, which_cubic_term="E", symmetric=false)
             end
 
-            Ak_1 = UniqueKronecker.makePolyOp(n, idx, val, nonredundant=false, symmetric=true)
-            Aku_1 = UniqueKronecker.makePolyOp(n, idx, val, nonredundant=true, symmetric=false)
+            Ak_1 = UniqueKronecker.make_poly_op(n, idx, val, nonredundant=false, symmetric=true)
+            Aku_1 = UniqueKronecker.make_poly_op(n, idx, val, nonredundant=true, symmetric=false)
             if k == 2 || k == 3
                 @test all(H .== Ak_1)
                 @test all(F .== Aku_1)
             end
 
-            # Ak_2 = UniqueKronecker.makePolyOp_faster(n, idx, val, nonredundant=false, symmetric=true)
-            # Aku_2 = UniqueKronecker.makePolyOp_faster(n, idx, val, nonredundant=true, symmetric=false)
+            # Ak_2 = UniqueKronecker.make_poly_op_faster(n, idx, val, nonredundant=false, symmetric=true)
+            # Aku_2 = UniqueKronecker.make_poly_op_faster(n, idx, val, nonredundant=true, symmetric=false)
             # @test all(Ak_1 .== Ak_2)
             # @test all(Aku_1 .== Aku_2)
 
-            # Ak = UniqueKronecker.makePolyOp_parallel(n, idx, val, nonredundant=false, symmetric=true)
-            # Aku = UniqueKronecker.makePolyOp_parallel(n, idx, val, nonredundant=true, symmetric=false)
+            # Ak = UniqueKronecker.make_poly_op_parallel(n, idx, val, nonredundant=false, symmetric=true)
+            # Aku = UniqueKronecker.make_poly_op_parallel(n, idx, val, nonredundant=true, symmetric=false)
             # @test all(Ak_1 .== Ak)
             # @test all(Aku_1 .== Aku)
         end

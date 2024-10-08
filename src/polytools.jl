@@ -1,5 +1,5 @@
 export dupmat, symmtzrmat, elimat, commat, eliminate, duplicate, duplicate_symmetric
-export makePolyOp, makePolyOp_faster, makePolyOp_parallel
+export make_poly_op, make_poly_op_faster, make_poly_op_parallel
 export kron_snapshot_matrix, unique_kron_snapshot_matrix
 
 
@@ -428,7 +428,7 @@ end
 
 
 """
-    makePolyOp(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
+    make_poly_op(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
                     nonredundant::Bool=true, symmetric::Bool=true) where P
 
 Helper function to construct the polynomial operator from the indices and values. The indices must
@@ -449,7 +449,7 @@ to construct the operator with symmetric coefficients.
 ## Returns
 - the polynomial operator
 """
-# function makePolyOp(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
+# function make_poly_op(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
 #                     nonredundant::Bool=true, symmetric::Bool=true) where P
 #     p = P - 1
 #     @assert length(inds) == length(vals) "The length of indices and values must be the same."
@@ -485,7 +485,7 @@ to construct the operator with symmetric coefficients.
 # end
 
 # Vectorized version of the above function
-function makePolyOp(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
+function make_poly_op(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
                     nonredundant::Bool=true, symmetric::Bool=true) where P
     p = P - 1
     @assert length(inds) == length(vals) "The length of indices and values must be the same."
@@ -529,7 +529,7 @@ function makePolyOp(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::Abstra
 end
 
 
-# function makePolyOp_faster(n::Int, inds::AbstractVector{<:NTuple{P, <:Int}}, vals::AbstractVector{<:Real};
+# function make_poly_op_faster(n::Int, inds::AbstractVector{<:NTuple{P, <:Int}}, vals::AbstractVector{<:Real};
 #                     nonredundant::Bool=true, symmetric::Bool=true) where P
 #     p = P - 1
 #     @assert length(inds) == length(vals) "The length of indices and values must be the same."
@@ -582,7 +582,7 @@ end
 # end
 
 
-# function makePolyOp_parallel(n::Int, inds::AbstractVector{<:NTuple{P, <:Int}}, vals::AbstractVector{<:Real};
+# function make_poly_op_parallel(n::Int, inds::AbstractVector{<:NTuple{P, <:Int}}, vals::AbstractVector{<:Real};
 #                              nonredundant::Bool=true, symmetric::Bool=true) where P
 #     p = P - 1
 #     @assert length(inds) == length(vals) "The length of indices and values must be the same."
@@ -591,7 +591,7 @@ end
 #     nthreads = Threads.nthreads()
 #     if nthreads == 1
 #         @warn "Only one thread is available. Using the sequential version."
-#         return makePolyOp_faster(n, inds, vals, nonredundant=nonredundant, symmetric=symmetric)
+#         return make_poly_op_faster(n, inds, vals, nonredundant=nonredundant, symmetric=symmetric)
 #     end
 #     # Initialize per-thread dictionaries to store partial results
 #     S_per_thread = [Dict{NTuple{P, Int}, Tuple{Int, Float64}}() for _ in 1:nthreads]
