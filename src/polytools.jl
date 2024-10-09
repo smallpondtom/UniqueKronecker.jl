@@ -2,7 +2,6 @@ export dupmat, symmtzrmat, elimat, commat, eliminate, duplicate, duplicate_symme
 export make_poly_op
 export kron_snapshot_matrix, unique_kron_snapshot_matrix
 
-
 """
     dupmat(n::Int, p::Int) -> Dp::SparseMatrixCSC{Int}
 
@@ -142,15 +141,35 @@ function symmtzrmat(n::Int, p::Int)
 
         # Generate all combinations (i1, i2, ..., ip) with i1 ≤ i2 ≤ ... ≤ ip
         combs = generate_redundant_combinations(n, p)
-        combs = reduce(hcat, combs)
-        combs = Vector{eltype(combs)}[eachrow(combs)...]
-        
-        # Fill in the duplication matrix using the computed combinations
-        elements!.(Ref(Sp), 1:np, combs...)
 
+        # INFO: Vectorization involves overhead of `reduce(hcat, combs)`
+        # combs = reduce(hcat, combs)
+        # combs = Vector{eltype(combs)}[eachrow(combs)...]
+        # # Fill in the duplication matrix using the computed combinations
+        # elements!.(Ref(Sp), 1:np, combs...)
+
+        # Remove overhead of `reduce(hcat, combs)` by using a loop
+        l = 1
+        for indices in combs
+            elements!(Sp, l, indices)
+            l += 1
+        end
+        
         return Sp
     end
 end
+
+# INFO: EXPERIMENTAL (THEORETICALLY INCORRECT)
+# function symmtzrmat2(n::Int, p::Int)
+#     np = n^p
+#     Sp = sparse(1.0I, np, np)
+
+#     for i in 1:p-1
+#         j = p - i
+#         Sp .+= commat(n^i, n^j)
+#     end
+#     return Sp / p
+# end
 
 
 """
