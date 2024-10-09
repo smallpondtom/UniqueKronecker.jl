@@ -1,5 +1,5 @@
 export dupmat, symmtzrmat, elimat, commat, eliminate, duplicate, duplicate_symmetric
-export make_poly_op, make_poly_op_faster, make_poly_op_parallel
+export make_poly_op
 export kron_snapshot_matrix, unique_kron_snapshot_matrix
 
 
@@ -428,6 +428,48 @@ end
 
 
 """
+    kron_snapshot_matrix(Xmat::AbstractArray{T}, p::Int) where {T<:Number}
+
+Take the `p`-order Kronecker product of each state of the snapshot matrix `Xmat`.
+
+## Arguments
+- `Xmat::AbstractArray{T}`: state snapshot matrix
+- `p::Int`: order of the Kronecker product
+
+## Returns
+- kronecker product state snapshot matrix
+"""
+function kron_snapshot_matrix(Xmat::AbstractArray{T}, p::Int) where {T<:Number}
+    function kron_timestep(x)
+        return x[:,:] ⊗ p  # x has to be AbstractMatrix (Kronecker.jl)
+    end
+    tmp = kron_timestep.(eachcol(Xmat))
+    return reduce(hcat, tmp)
+end
+
+
+"""
+    unique_kron_snapshot_matrix(Xmat::AbstractArray{T}, p::Int) where {T<:Number}
+
+Take the `p`-order unique Kronecker product of each state of the snapshot matrix `Xmat`.
+
+## Arguments
+- `Xmat::AbstractArray{T}`: state snapshot matrix
+- `p::Int`: order of the Kronecker product
+
+## Returns
+- unique kronecker product state snapshot matrix
+"""
+function unique_kron_snapshot_matrix(Xmat::AbstractArray{T}, p::Int) where {T<:Number}
+    function unique_kron_timestep(x)
+        return ⊘(x, p)
+    end
+    tmp = unique_kron_timestep.(eachcol(Xmat))
+    return reduce(hcat, tmp)
+end
+
+
+"""
     make_poly_op(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
                     nonredundant::Bool=true, symmetric::Bool=true) where P
 
@@ -449,42 +491,6 @@ to construct the operator with symmetric coefficients.
 ## Returns
 - the polynomial operator
 """
-# function make_poly_op(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
-#                     nonredundant::Bool=true, symmetric::Bool=true) where P
-#     p = P - 1
-#     @assert length(inds) == length(vals) "The length of indices and values must be the same."
-#     # Initialize a p-order tensor of size n^p
-#     S = zeros(ntuple(_ -> n, p+1))
-    
-#     # Iterate over indices and assign values considering symmetry
-#     for (ind, val) in zip(inds, vals)
-#         if symmetric
-#             element_idx = ind[1:end-1]
-#             last_idx = ind[end]
-#             perms = unique(permutations(element_idx))
-#             contribution = val / length(perms)
-#             for perm in perms
-#                 S[perm...,last_idx] = contribution
-#             end
-#         else
-#             S[ind...] = val
-#         end
-#     end
-
-#     # Flatten the p-order tensor into a matrix form with non-unique coefficients
-#     A = spzeros(n, n^p)
-#     for i in 1:n
-#         A[i, :] = vec(S[ntuple(_ -> :, p)..., i])
-#     end
-
-#     if nonredundant
-#         return eliminate(A, p)
-#     else
-#         return A
-#     end
-# end
-
-# Vectorized version of the above function
 function make_poly_op(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
                     nonredundant::Bool=true, symmetric::Bool=true) where P
     p = P - 1
@@ -527,6 +533,41 @@ function make_poly_op(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::Abst
         return A
     end
 end
+
+# function make_poly_op(n::Int, inds::AbstractArray{<:NTuple{P,<:Int}}, vals::AbstractArray{<:Real}; 
+#                     nonredundant::Bool=true, symmetric::Bool=true) where P
+#     p = P - 1
+#     @assert length(inds) == length(vals) "The length of indices and values must be the same."
+#     # Initialize a p-order tensor of size n^p
+#     S = zeros(ntuple(_ -> n, p+1))
+    
+#     # Iterate over indices and assign values considering symmetry
+#     for (ind, val) in zip(inds, vals)
+#         if symmetric
+#             element_idx = ind[1:end-1]
+#             last_idx = ind[end]
+#             perms = unique(permutations(element_idx))
+#             contribution = val / length(perms)
+#             for perm in perms
+#                 S[perm...,last_idx] = contribution
+#             end
+#         else
+#             S[ind...] = val
+#         end
+#     end
+
+#     # Flatten the p-order tensor into a matrix form with non-unique coefficients
+#     A = spzeros(n, n^p)
+#     for i in 1:n
+#         A[i, :] = vec(S[ntuple(_ -> :, p)..., i])
+#     end
+
+#     if nonredundant
+#         return eliminate(A, p)
+#     else
+#         return A
+#     end
+# end
 
 
 # function make_poly_op_faster(n::Int, inds::AbstractVector{<:NTuple{P, <:Int}}, vals::AbstractVector{<:Real};
@@ -657,44 +698,3 @@ end
 #     end
 # end
 
-
-"""
-    kron_snapshot_matrix(Xmat::AbstractArray{T}, p::Int) where {T<:Number}
-
-Take the `p`-order Kronecker product of each state of the snapshot matrix `Xmat`.
-
-## Arguments
-- `Xmat::AbstractArray{T}`: state snapshot matrix
-- `p::Int`: order of the Kronecker product
-
-## Returns
-- kronecker product state snapshot matrix
-"""
-function kron_snapshot_matrix(Xmat::AbstractArray{T}, p::Int) where {T<:Number}
-    function kron_timestep(x)
-        return x[:,:] ⊗ p  # x has to be AbstractMatrix (Kronecker.jl)
-    end
-    tmp = kron_timestep.(eachcol(Xmat))
-    return reduce(hcat, tmp)
-end
-
-
-"""
-    unique_kron_snapshot_matrix(Xmat::AbstractArray{T}, p::Int) where {T<:Number}
-
-Take the `p`-order unique Kronecker product of each state of the snapshot matrix `Xmat`.
-
-## Arguments
-- `Xmat::AbstractArray{T}`: state snapshot matrix
-- `p::Int`: order of the Kronecker product
-
-## Returns
-- unique kronecker product state snapshot matrix
-"""
-function unique_kron_snapshot_matrix(Xmat::AbstractArray{T}, p::Int) where {T<:Number}
-    function unique_kron_timestep(x)
-        return ⊘(x, p)
-    end
-    tmp = unique_kron_timestep.(eachcol(Xmat))
-    return reduce(hcat, tmp)
-end

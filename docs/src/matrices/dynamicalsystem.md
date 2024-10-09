@@ -187,9 +187,3 @@ This formulation allows us to apply polynomial system analysis tools to the visc
 
 !!! Note
     There are additional functions `make_poly_op_faster` and `make_poly_op_parallel` which are experimental functions designed to speed up the construction of polynomial operators. I am planning to improve these functions and do some benchmarks.
-
-
-```@docs
-make_poly_op_faster
-make_poly_op_parallel
-```
