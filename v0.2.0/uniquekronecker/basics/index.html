@@ -3,38 +3,38 @@
     \mathbf{x}^{[k]} &amp;= \underbrace{\mathbf{x} \otimes \cdots \otimes \mathbf{x}}_{k-\text{times}} \in \mathbb{R}^{n^k}, \\
     \mathbf{x}^{\langle k \rangle} &amp;= \underbrace{\mathbf{x} \oslash \cdots \oslash \mathbf{x}}_{k-\text{times}} \in \mathbb{R}^{\binom{n+k-1}{k}}
 \end{align*}\]</p><p>where <span>$\mathbf{x}\in\mathbb{R}^n$</span>. From this definition, we observe that the dimensions of the Kronecker product grows in the order of <span>$n^k$</span> but the unique Kronecker grows in the order of <span>$\binom{n+k-1}{k}$</span>. The reduction in computational cost from this order difference becomes significantly obvious in higher-dimensions. </p><p>For a second-order Kronecker product, the package supports the following syntax</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using UniqueKronecker</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; n = 3</code><code class="nohighlight hljs ansi" style="display:block;">3</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; x = rand(n)</code><code class="nohighlight hljs ansi" style="display:block;">3-element Vector{Float64}:
- 0.9403447959652036
- 0.48365399814110954
- 0.13267588999125435</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; x2u = x ⊘ x  # or unique_kronecker(x,x)</code><code class="nohighlight hljs ansi" style="display:block;">6-element Vector{Float64}:
- 0.8842483352988404
- 0.4548015201997566
- 0.12476108270332786
- 0.23392118991788038
- 0.06416922465120019
- 0.017602891784971427</code></pre><p>for higher-order Kronecker products, you can do</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using UniqueKronecker</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; n = 3</code><code class="nohighlight hljs ansi" style="display:block;">3</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; k = 5</code><code class="nohighlight hljs ansi" style="display:block;">5</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; x = rand(n)</code><code class="nohighlight hljs ansi" style="display:block;">3-element Vector{Float64}:
- 0.42758969710697836
- 0.4899983508627568
- 0.005168699675982991</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; xku = ⊘(x, k)</code><code class="nohighlight hljs ansi" style="display:block;">21-element Vector{Float64}:
- 0.0142934201911569
- 0.016379609633351496
- 0.00017277871008252525
- 0.018770287877422694
- 0.00019799654570126462
- 2.088547195740495e-6
- 0.021509896443681665
- 0.00022689503869376267
- 2.3933801224304007e-6
- 2.5246336118333247e-8
+ 0.18687187529531446
+ 0.35792400565267646
+ 0.30062397583612055</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; x2u = x ⊘ x  # or unique_kronecker(x,x)</code><code class="nohighlight hljs ansi" style="display:block;">6-element Vector{Float64}:
+ 0.03492109777638756
+ 0.06688593014952639
+ 0.056178166123229144
+ 0.12810959382245718
+ 0.10760053762649768
+ 0.0903747748475164</code></pre><p>for higher-order Kronecker products, you can do</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using UniqueKronecker</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; n = 3</code><code class="nohighlight hljs ansi" style="display:block;">3</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; k = 5</code><code class="nohighlight hljs ansi" style="display:block;">5</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; x = rand(n)</code><code class="nohighlight hljs ansi" style="display:block;">3-element Vector{Float64}:
+ 0.9425298372287527
+ 0.39288293901424176
+ 0.8012828373541029</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; xku = ⊘(x, k)</code><code class="nohighlight hljs ansi" style="display:block;">21-element Vector{Float64}:
+ 0.7438331625948243
+ 0.3100584697835791
+ 0.6323627364354747
+ 0.1292443783350129
+ 0.2635932790672599
+ 0.5375972066601485
+ 0.053874062343349065
+ 0.10987588731285107
+ 0.22409133612098517
+ 0.4570331867400992
  ⋮
- 2.7427047960072553e-6
- 2.8931153269147024e-8
- 3.051774404235454e-10
- 0.028247049555798192
- 0.00029796123931735994
- 3.143014988526944e-6
- 3.3153786179494777e-8
- 3.4971947065095456e-10
- 3.688981629133727e-12</code></pre><p>Another concept we need to define is the vectorization and half-vectorization operators <span>$\mathrm{vec}(\cdot)$</span> and <span>$\mathrm{vech}(\cdot)$</span>, respectively. The vectorization operator flattens a matrix <span>$\mathbf{A}\in\mathbb{R}^{m\times n}$</span> in the column direction creating a vector of size <span>$mn$</span>. On the other hand, the half-vectorization operator vectorizes the matrix but only half of it or discarding the supradiagonal entries. These operations are strongly related to the second-order Kronecker and unique Kronecker products, and those relationships are described in the picture below.</p><img src="../../images/vectorize_and_kronecker.png" alt="unique kronecker example" style="float: left; margin-right: 10px;" /><p>The vectorization operator is already defined in the <code>LinearAlgebra</code> package as the function <code>vec</code>, but we define the functions <code>vech</code> for the half-vectorization operator and <code>invec</code> function for the inverse-vectorization operator that reverses the vectorization.</p><p>We are aware that similar concepts exists in the tensor algebra literature, and the vectorization and half-vectorization operations can be generalized to higher-order Kronecker products. However, for ease of exposition, we only illustrate the second-order Kronecker product case.</p><h2 id="Columnwise-Operation-on-Snapshot-Matrices"><a class="docs-heading-anchor" href="#Columnwise-Operation-on-Snapshot-Matrices">Columnwise Operation on Snapshot Matrices</a><a id="Columnwise-Operation-on-Snapshot-Matrices-1"></a><a class="docs-heading-anchor-permalink" href="#Columnwise-Operation-on-Snapshot-Matrices" title="Permalink"></a></h2><p>We also employ the functions </p><ul><li><code>kron_snapshot_matrix</code></li><li><code>unique_kron_snapshot_matrix</code></li></ul><p>which allows you to apply the Kronecker product and unique Kronecker product on each column of a matrix. For example</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using UniqueKronecker</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; X = [1 2; 3 4]</code><code class="nohighlight hljs ansi" style="display:block;">2×2 Matrix{Int64}:
+ 0.0934099476380536
+ 0.19050913248692783
+ 0.3885424462665727
+ 0.009360862147713452
+ 0.019091432681245954
+ 0.03893688381166655
+ 0.07941158457178069
+ 0.16195953930734347
+ 0.33031569026225205</code></pre><p>Another concept we need to define is the vectorization and half-vectorization operators <span>$\mathrm{vec}(\cdot)$</span> and <span>$\mathrm{vech}(\cdot)$</span>, respectively. The vectorization operator flattens a matrix <span>$\mathbf{A}\in\mathbb{R}^{m\times n}$</span> in the column direction creating a vector of size <span>$mn$</span>. On the other hand, the half-vectorization operator vectorizes the matrix but only half of it or discarding the supradiagonal entries. These operations are strongly related to the second-order Kronecker and unique Kronecker products, and those relationships are described in the picture below.</p><img src="../../images/vectorize_and_kronecker.png" alt="unique kronecker example" style="float: left; margin-right: 10px;" /><p>The vectorization operator is already defined in the <code>LinearAlgebra</code> package as the function <code>vec</code>, but we define the functions <code>vech</code> for the half-vectorization operator and <code>invec</code> function for the inverse-vectorization operator that reverses the vectorization.</p><p>We are aware that similar concepts exists in the tensor algebra literature, and the vectorization and half-vectorization operations can be generalized to higher-order Kronecker products. However, for ease of exposition, we only illustrate the second-order Kronecker product case.</p><h2 id="Columnwise-Operation-on-Snapshot-Matrices"><a class="docs-heading-anchor" href="#Columnwise-Operation-on-Snapshot-Matrices">Columnwise Operation on Snapshot Matrices</a><a id="Columnwise-Operation-on-Snapshot-Matrices-1"></a><a class="docs-heading-anchor-permalink" href="#Columnwise-Operation-on-Snapshot-Matrices" title="Permalink"></a></h2><p>We also employ the functions </p><ul><li><code>kron_snapshot_matrix</code></li><li><code>unique_kron_snapshot_matrix</code></li></ul><p>which allows you to apply the Kronecker product and unique Kronecker product on each column of a matrix. For example</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using UniqueKronecker</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; X = [1 2; 3 4]</code><code class="nohighlight hljs ansi" style="display:block;">2×2 Matrix{Int64}:
  1  2
  3  4</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; X2 = kron_snapshot_matrix(X, 2)</code><code class="nohighlight hljs ansi" style="display:block;">4×2 Matrix{Int64}:
  1   4
