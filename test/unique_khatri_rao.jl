@@ -1,5 +1,5 @@
 using Test
-using UniqueKronecker: unique_khatri_rao, ⦼, unique_kronecker, unique_kronecker_power
+using UniqueKronecker: unique_khatri_rao, ⨸, unique_kronecker, unique_kronecker_power
 
 @testset "unique_khatri_rao basic" begin
     A = [1 2; 3 4]
@@ -8,10 +8,10 @@ using UniqueKronecker: unique_khatri_rao, ⦼, unique_kronecker, unique_kronecke
     col2 = unique_kronecker(A[:,2], B[:,2])  # [12,16,32]
     expected = hcat(col1, col2)
     @test unique_khatri_rao(A, B) == expected
-    @test A ⦼ B == expected
+    @test A ⨸ B == expected
     # unary = self‐Khatri–Rao
     @test unique_khatri_rao(A) == unique_khatri_rao(A, A)
-    @test ⦼(A) == unique_khatri_rao(A, A)
+    @test ⨸(A) == unique_khatri_rao(A, A)
 end
 
 @testset "unique_khatri_rao multiple mats" begin
@@ -23,7 +23,7 @@ end
     # This is supposed to be wrong since the unique Kronecker no longer is
     # unique for the third matrix since (A ⊘ A) and A are not symmetric.
     @test unique_khatri_rao(A, B, C) !== expected3
-    @test ⦼(A, B, C) !== expected3
+    @test ⨸(A, B, C) !== expected3
 end
 
 @testset "unique_khatri_rao power" begin
@@ -32,7 +32,7 @@ end
     cols2 = [ ⊘(A[:,j], 2) for j in 1:2 ]
     expected2 = hcat(cols2...)
     @test unique_khatri_rao(A, 2) == expected2
-    @test ⦼(A, 2) == expected2
+    @test ⨸(A, 2) == expected2
     # d = 3
     cols3 = [ ⊘(A[:,j], 3) for j in 1:2 ]
     expected3 = hcat(cols3...)

@@ -1,4 +1,4 @@
-export unique_khatri_rao, ⦼
+export unique_khatri_rao, ⨸
 
 """
     unique_khatri_rao(A::AbstractMatrix, B::AbstractMatrix)
@@ -49,6 +49,6 @@ function unique_khatri_rao(A::AbstractMatrix, d::Integer)
 end
 
 # operator aliases
-⦼(A::AbstractMatrix, B::AbstractMatrix)    = unique_khatri_rao(A, B)
-⦼(mats::AbstractMatrix...)                 = unique_khatri_rao(mats...)
-⦼(A::AbstractMatrix, d::Integer)           = unique_khatri_rao(A, d)
+⨸(A::AbstractMatrix, B::AbstractMatrix)    = unique_khatri_rao(A, B)
+⨸(mats::AbstractMatrix...)                 = unique_khatri_rao(mats...)
+⨸(A::AbstractMatrix, d::Integer)           = unique_khatri_rao(A, d)
