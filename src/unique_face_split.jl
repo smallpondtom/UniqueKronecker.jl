@@ -51,7 +51,11 @@ function unique_face_split(A::AbstractMatrix, d::Integer)
     return vcat(rows...)
 end
 
-# operator aliases
+"""
+    A ⧁ B
+
+Operator form of unique-face-splitting product and its variants.
+"""
 ⧁(A::AbstractMatrix, B::AbstractMatrix)      = unique_face_split(A, B)
 ⧁(A::AbstractMatrix)                         = unique_face_split(A)
 ⧁(mats::AbstractMatrix...)                   = unique_face_split(mats...)

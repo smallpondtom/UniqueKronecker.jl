@@ -48,7 +48,11 @@ function unique_khatri_rao(A::AbstractMatrix, d::Integer)
     return hcat(cols...)
 end
 
-# operator aliases
+"""
+    A ⨸ B
+
+Operator form of unique Khatri-Rao product and its variants.
+"""
 ⨸(A::AbstractMatrix, B::AbstractMatrix)    = unique_khatri_rao(A, B)
 ⨸(mats::AbstractMatrix...)                 = unique_khatri_rao(mats...)
 ⨸(A::AbstractMatrix, d::Integer)           = unique_khatri_rao(A, d)

@@ -50,7 +50,11 @@ function face_split(A::AbstractMatrix, d::Integer)
     return vcat(rows...)
 end
 
-# operator aliases
+"""
+    A ⊖ B 
+
+Operator form of face-splitting product and its variants.
+"""
 ⊖(A::AbstractMatrix, B::AbstractMatrix)      = face_split(A, B)
 ⊖(A::AbstractMatrix)                         = face_split(A)
 ⊖(mats::AbstractMatrix...)                   = face_split(mats...)

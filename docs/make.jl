@@ -11,6 +11,9 @@ PAGES = [
         "Basics" => "uniquekronecker/basics.md",
         "Higher Order" => "uniquekronecker/higherorder.md",
     ],
+    "Khatri-Rao Product" => "khatrirao/basics.md",
+    "Face-Splitting Product" => "facesplit/basics.md",
+    "Product Comparison" => "comparison.md",
     "Circulant Kronecker Products" => "circulantkronecker/basics.md",
     "Matrix Conversions" => [
         "Polynomial Dynamical System" => "matrices/dynamicalsystem.md",

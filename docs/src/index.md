@@ -1,6 +1,6 @@
 # UniqueKronecker.jl
 
-**UniqueKronecker.jl** is a Julia package for computing non-redundant (unique) Kronecker products of vectors, generalizing to _n_ dimensions and _k_-repeated products. It provides utility functions to work with the associated coefficient matrices, enabling conversions between unique Kronecker products and their standard (possibly redundant) Kronecker counterparts.
+**UniqueKronecker.jl** is a Julia package for computing non-redundant (unique) Kronecker products of vectors, generalizing to _n_ dimensions and _k_-repeated products. It also provides efficient implementations of the Khatri-Rao (column-wise Kronecker) and face-splitting (row-wise Kronecker) products, along with their unique counterparts. The package includes utility functions to work with the associated coefficient matrices, enabling conversions between unique and standard products.
 
 ### What is the Unique Kronecker Product?
 
@@ -38,6 +38,8 @@ These matrices are useful for applications in polynomial regression, symmetric t
 - Compute the unique Kronecker product for vectors of any dimension ``n`` and any repeated (Kronecker) order ``k``.
 - Generate the associated polynomial and Kronecker coefficient matrices ``\mathbf{A}_{2u}`` and ``\mathbf{A}_2``.
 - Convert between unique and standard Kronecker products.
+- **Khatri-Rao Product**: Compute column-wise Kronecker products of matrices and their unique variants.
+- **Face-Splitting Product**: Compute row-wise Kronecker products of matrices and their unique variants.
 - Utility functions for polynomial modeling and symmetric tensor operations.
 
 ## Installation
@@ -147,6 +149,86 @@ x_unique_kron_k3 = unique_kronecker(x, k)  # or ⊘(x,k)
 println(x_unique_kron_k3)
 # Output: Corresponding unique products of order 3
 ```
+
+### Khatri-Rao Product
+
+The **Khatri-Rao product** (also known as the column-wise Kronecker product) takes two matrices and performs the Kronecker product on corresponding columns:
+
+```julia
+A = [1 2; 3 4]
+B = [5 6; 7 8]
+
+# Standard Khatri-Rao product
+kr = khatri_rao(A, B)  # or A ⊙ B
+# Column 1: kron([1,3], [5,7]) = [5,7,15,21]
+# Column 2: kron([2,4], [6,8]) = [12,16,24,32]
+
+# Unique Khatri-Rao product (eliminates redundancies in each column)
+ukr = unique_khatri_rao(A, B)  # or A ⨸ B
+
+# Self-product with power
+kr_power = khatri_rao(A, 3)  # or A ⊙ 3
+ukr_power = unique_khatri_rao(A, 3)  # or A ⨸ 3
+```
+
+The Khatri-Rao product is particularly useful in:
+
+- Multilinear algebra
+- Tensor decompositions
+- Signal processing and array processing
+- Machine learning feature engineering
+
+### Face-Splitting Product
+
+The **face-splitting product** (also known as the row-wise Kronecker product) takes two matrices and performs the Kronecker product on corresponding rows:
+
+```julia
+A = [1 2; 3 4]
+B = [5 6; 7 8]
+
+# Standard face-splitting product
+fs = face_split(A, B)  # or A ⊖ B
+# Row 1: kron([1,2], [5,6]) = [5,6,10,12]
+# Row 2: kron([3,4], [7,8]) = [21,24,28,32]
+
+# Unique face-splitting product (eliminates redundancies in each row)
+ufs = unique_face_split(A, B)  # or A ⧁ B
+
+# Self-product with power
+fs_power = face_split(A, 2)  # or A ⊖ 2
+ufs_power = unique_face_split(A, 2)  # or A ⧁ 2
+```
+
+The face-splitting product is useful in:
+
+- Matrix polynomial operations
+- Row-wise tensor computations
+- Structured matrix operations
+
+### Circulant Kronecker Product
+
+The **circulant Kronecker product** sums over all cyclic permutations of the Kronecker products. It's particularly useful for computing derivatives of Kronecker products:
+
+```julia
+x = [1, 2]
+y = [3, 4]
+
+# Circulant Kronecker product
+ck = circulant_kronecker(x, y)  # or x ⊛ y
+# Result: (x ⊗ y) + (y ⊗ x)
+
+# Three vectors
+z = [5, 6]
+ck3 = x ⊛ y ⊛ z
+# Result: (x ⊗ y ⊗ z) + (y ⊗ z ⊗ x) + (z ⊗ x ⊗ y)
+```
+
+The circulant Kronecker product is useful in:
+
+- Computing derivatives of Kronecker products (e.g., ``\frac{\partial (\mathbf{x}\otimes\mathbf{x})}{\partial \mathbf{x}} = \mathbf{I} \circledast \mathbf{x}``)
+- Tensor calculus and differential operations
+- Symmetric polynomial structures
+- Applications requiring all cyclic permutations
 
 ## Applications
 
