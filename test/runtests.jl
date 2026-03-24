@@ -1,3 +1,5 @@
+using LinearAlgebra
+using SparseArrays
 using UniqueKronecker
 using Test
 using Kronecker 
@@ -22,5 +24,6 @@ defaultname(file) = uppercasefirst(replace(splitext(basename(file))[1], '_' => '
     testfile("conversion.jl")
     testfile("snapshot.jl")
     testfile("vectorize.jl")
+    testfile("jacobian.jl")
     testfile("legacy.jl")
 end

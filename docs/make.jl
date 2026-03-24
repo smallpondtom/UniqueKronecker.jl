@@ -15,6 +15,10 @@ PAGES = [
     "Face-Splitting Product" => "facesplit/basics.md",
     "Product Comparison" => "comparison.md",
     "Circulant Kronecker Products" => "circulantkronecker/basics.md",
+    "Jacobian" => [
+        "Theory" => "jacobian/theory.md",
+        "Usage" => "jacobian/usage.md",
+    ],
     "Matrix Conversions" => [
         "Polynomial Dynamical System" => "matrices/dynamicalsystem.md",
         "Elimination Matrix" => "matrices/elimination.md",

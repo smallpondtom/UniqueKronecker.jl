@@ -14,6 +14,7 @@ include("face_split.jl")
 include("unique_face_split.jl")
 include("polytools.jl")
 include("vectorize.jl")
+include("jacobian.jl")
 include("legacy.jl")
 
 end # module UniqueKronecker

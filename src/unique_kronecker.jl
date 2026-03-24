@@ -210,7 +210,7 @@ Unique Kronecker product operation generalized for power `p`.
     n = length(x)
 
     if n == 1  # If x is a scalar
-        return x^p
+        return x[1]^p
     end
 
     # Calculate the correct number of unique elements
